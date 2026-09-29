@@ -1,4 +1,4 @@
-import { Property } from "../data/mockProperties";
+import { Property } from "../lib/types";
 
 export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
   return (
@@ -7,7 +7,7 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
         <img
           alt={property.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          src={property.imageUrl}
+          src={property.image_url}
         />
         <div className="absolute top-4 left-4 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-nordic-dark dark:text-white">
           {property.tag}
@@ -30,7 +30,7 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
             </p>
           </div>
           <span className="text-xl font-semibold text-mosque dark:text-primary">
-            {property.price}
+            {property.price_label}
           </span>
         </div>
         <div className="flex items-center gap-6 mt-6 pt-6 border-t border-nordic-dark/5 dark:border-white/10">

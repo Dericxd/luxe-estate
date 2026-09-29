@@ -1,23 +1,21 @@
-import { Property } from "../data/mockProperties";
+import { Property } from "../lib/types";
 
 export const MarketPropertyCard = ({ property }: { property: Property }) => {
   return (
     <article
-      className={`bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${
-        property.hiddenClass || ""
-      }`}
+      className="bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           alt={property.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          src={property.imageUrl}
+          src={property.image_url}
         />
         <button className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/50 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark dark:text-white dark:hover:text-white">
           <span className="material-icons text-lg">favorite_border</span>
         </button>
         <div
-          className={`absolute bottom-3 left-3 text-white text-xs font-bold px-2 py-1 rounded ${property.tagColor}`}
+          className={`absolute bottom-3 left-3 text-white text-xs font-bold px-2 py-1 rounded ${property.tag_color ?? 'bg-nordic-dark/90'}`}
         >
           {property.tag}
         </div>
@@ -25,12 +23,12 @@ export const MarketPropertyCard = ({ property }: { property: Property }) => {
       <div className="p-4 flex flex-col flex-grow">
         <div className="flex justify-between items-baseline mb-2">
           <h3 className="font-bold text-lg text-nordic-dark dark:text-white">
-            {property.price.includes('/mo') ? (
+            {property.listing_type === 'rent' ? (
                <>
-                 {property.price.split('/mo')[0]}
+                 {property.price_label.split('/mo')[0]}
                  <span className="text-sm font-normal text-nordic-muted">/mo</span>
                </>
-            ) : property.price}
+            ) : property.price_label}
           </h3>
         </div>
         <h4 className="text-nordic-dark dark:text-gray-200 font-medium truncate mb-1">
