@@ -9,6 +9,7 @@ export interface Property {
   baths: number;
   area: string;
   image_url: string;
+  images?: string[];
   tag: string;
   tag_color: string | null;
   is_featured: boolean;
