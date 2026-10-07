@@ -1,27 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Property } from "../lib/types";
 
 export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
-  const images = property.images && property.images.length > 0
-    ? property.images
-    : [property.image_url];
+  const images = property.images;
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const prevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   const nextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  const propertyHref = property.slug ? `/properties/${property.slug}` : `/properties/${property.id}`;
+
   return (
-    <div className="group relative rounded-xl overflow-hidden shadow-soft bg-white dark:bg-white/5 cursor-pointer">
+    <Link href={propertyHref} className="group relative rounded-xl overflow-hidden shadow-soft bg-white dark:bg-white/5 cursor-pointer block">
       <div className="aspect-[4/3] w-full overflow-hidden relative">
         <img
           alt={`${property.title} - image ${currentImageIndex + 1}`}
@@ -36,7 +39,7 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
 
         {/* Favorite button */}
         <button 
-          onClick={(e) => e.stopPropagation()} 
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }} 
           className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center text-nordic-dark dark:text-white hover:bg-mosque hover:text-white dark:hover:text-white transition-all z-10"
         >
           <span className="material-icons text-xl">favorite_border</span>
@@ -69,6 +72,7 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
                   key={idx}
                   type="button"
                   onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setCurrentImageIndex(idx);
                   }}
@@ -121,6 +125,6 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

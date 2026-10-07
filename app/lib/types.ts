@@ -8,8 +8,8 @@ export interface Property {
   beds: number;
   baths: number;
   area: string;
-  image_url: string;
-  images?: string[];
+  images: string[];
+  slug?: string;
   tag: string;
   tag_color: string | null;
   is_featured: boolean;

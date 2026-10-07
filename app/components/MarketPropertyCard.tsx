@@ -1,17 +1,26 @@
+"use client";
+
+import Link from "next/link";
 import { Property } from "../lib/types";
 
 export const MarketPropertyCard = ({ property }: { property: Property }) => {
+  const propertyHref = property.slug ? `/properties/${property.slug}` : `/properties/${property.id}`;
+  
   return (
-    <article
-      className="bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col"
+    <Link
+      href={propertyHref}
+      className="block bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           alt={property.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          src={property.images?.[0] || property.image_url}
+          src={property.images[0]}
         />
-        <button className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/50 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark dark:text-white dark:hover:text-white">
+        <button 
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/50 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark dark:text-white dark:hover:text-white"
+        >
           <span className="material-icons text-lg">favorite_border</span>
         </button>
         <div
@@ -47,6 +56,6 @@ export const MarketPropertyCard = ({ property }: { property: Property }) => {
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 };

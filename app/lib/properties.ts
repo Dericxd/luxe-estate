@@ -63,3 +63,27 @@ export async function getMarketProperties(
     totalPages,
   };
 }
+
+/**
+ * Fetches a single property by slug or id.
+ */
+export async function getPropertyBySlugOrId(slugOrId: string): Promise<Property | null> {
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slugOrId);
+  
+  let query = supabase.from('properties').select('*');
+  
+  if (isUuid) {
+    query = query.eq('id', slugOrId);
+  } else {
+    query = query.eq('slug', slugOrId);
+  }
+
+  const { data, error } = await query.single();
+
+  if (error) {
+    console.error('[getPropertyBySlugOrId] Supabase error:', error.message);
+    return null;
+  }
+
+  return data;
+}
