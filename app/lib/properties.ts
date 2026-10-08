@@ -22,22 +22,60 @@ export async function getFeaturedProperties(): Promise<Property[]> {
   return data ?? [];
 }
 
+export interface FilterOptions {
+  search?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  type?: string;
+  beds?: string;
+  baths?: string;
+}
+
 /**
  * Fetches a paginated list of non-featured market properties.
- * Uses Supabase range-based pagination (server-side).
+ * Uses Supabase range-based pagination (server-side) and filters.
  *
  * @param page - 1-indexed page number (from the URL search param)
+ * @param filters - Optional filters
  */
 export async function getMarketProperties(
-  page: number = 1
+  page: number = 1,
+  filters?: FilterOptions
 ): Promise<PaginatedProperties> {
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
-  const { data, error, count } = await supabase
+  let query = supabase
     .from('properties')
     .select('*', { count: 'exact' })
-    .eq('is_featured', false)
+    .eq('is_featured', false);
+
+  if (filters?.search) {
+    query = query.ilike('location', `%${filters.search}%`);
+  }
+  
+  if (filters?.minPrice) {
+    query = query.gte('price', parseInt(filters.minPrice, 10));
+  }
+  
+  if (filters?.maxPrice) {
+    query = query.lte('price', parseInt(filters.maxPrice, 10));
+  }
+  
+  if (filters?.type && filters.type !== "Any Type") {
+    // Basic mapping or strictly matching the title/tag
+    query = query.ilike('title', `%${filters.type}%`);
+  }
+  
+  if (filters?.beds) {
+    query = query.gte('beds', parseInt(filters.beds, 10));
+  }
+  
+  if (filters?.baths) {
+    query = query.gte('baths', parseInt(filters.baths, 10));
+  }
+
+  const { data, error, count } = await query
     .order('created_at', { ascending: false })
     .range(from, to);
 

@@ -7,7 +7,15 @@ import { Pagination } from "./components/Pagination";
 import { getFeaturedProperties, getMarketProperties } from "./lib/properties";
 
 interface HomeProps {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ 
+    page?: string;
+    search?: string;
+    minPrice?: string;
+    maxPrice?: string;
+    type?: string;
+    beds?: string;
+    baths?: string;
+  }>;
 }
 
 export default async function Home({ searchParams }: HomeProps) {
@@ -18,7 +26,14 @@ export default async function Home({ searchParams }: HomeProps) {
   const [featuredProperties, { properties: marketProperties, totalPages, total }] =
     await Promise.all([
       getFeaturedProperties(),
-      getMarketProperties(page),
+      getMarketProperties(page, {
+        search: params.search,
+        minPrice: params.minPrice,
+        maxPrice: params.maxPrice,
+        type: params.type,
+        beds: params.beds,
+        baths: params.baths
+      }),
     ]);
 
   return (
