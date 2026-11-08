@@ -19,9 +19,9 @@ export const MarketPropertyCard = ({ property }: { property: Property }) => {
         />
         <button 
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-          className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/50 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark dark:text-white dark:hover:text-white"
+          className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center bg-white/90 dark:bg-black/50 backdrop-blur-sm rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark dark:text-white dark:hover:text-white"
         >
-          <span className="material-icons text-lg">favorite_border</span>
+          <span className="material-icons text-lg leading-none">favorite_border</span>
         </button>
         <div
           className={`absolute bottom-3 left-3 text-white text-xs font-bold px-2 py-1 rounded ${property.tag_color ?? 'bg-nordic-dark/90'}`}
