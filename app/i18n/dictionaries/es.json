@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "title": "LuxeEstate - Bienes Raíces de Lujo",
+    "description": "Encuentra tu santuario"
+  },
+  "navbar": {
+    "buy": "Comprar",
+    "rent": "Alquilar",
+    "sell": "Vender",
+    "savedHomes": "Guardados",
+    "languageSelectorLabel": "Seleccionar idioma"
+  },
+  "hero": {
+    "titlePrefix": "Encuentra tu",
+    "titleHighlight": "santuario",
+    "searchPlaceholder": "Buscar por ciudad, vecindario o dirección...",
+    "searchButton": "Buscar",
+    "filtersButton": "Filtros",
+    "types": {
+      "All": "Todos",
+      "House": "Casa",
+      "Apartment": "Apartamento",
+      "Villa": "Villa",
+      "Penthouse": "Ático"
+    }
+  },
+  "filtersModal": {
+    "title": "Filtros",
+    "locationLabel": "Ubicación",
+    "locationPlaceholder": "Ciudad, vecindario o dirección",
+    "priceRangeLabel": "Rango de Precio",
+    "minPrice": "Precio Mín",
+    "maxPrice": "Precio Máx",
+    "propertyTypeLabel": "Tipo de Propiedad",
+    "types": {
+      "Any Type": "Cualquier tipo",
+      "House": "Casa",
+      "Apartment": "Apartamento",
+      "Condo": "Condominio",
+      "Villa": "Villa",
+      "Penthouse": "Ático"
+    },
+    "bedrooms": "Habitaciones",
+    "bathrooms": "Baños",
+    "any": "Todos",
+    "amenitiesLabel": "Comodidades y Características",
+    "pool": "Piscina",
+    "gym": "Gimnasio",
+    "parking": "Estacionamiento",
+    "clearAll": "Limpiar todos los filtros",
+    "showResults": "Mostrar Resultados"
+  },
+  "home": {
+    "featuredTitle": "Colecciones Destacadas",
+    "featuredSubtitle": "Propiedades seleccionadas para el gusto más exigente.",
+    "viewAll": "Ver todas",
+    "marketTitle": "Nuevas en el Mercado",
+    "marketSubtitle": "Nuevas oportunidades — {total} propiedades disponibles.",
+    "tabs": {
+      "all": "Todas",
+      "buy": "Comprar",
+      "rent": "Alquilar"
+    }
+  },
+  "propertyCard": {
+    "beds": "Hab.",
+    "baths": "Baños",
+    "perMonth": "/mes",
+    "previousImage": "Imagen anterior",
+    "nextImage": "Siguiente imagen",
+    "goToPhoto": "Ir a la foto {number}",
+    "tags": {
+      "Exclusive": "Exclusivo",
+      "New": "Nuevo",
+      "Featured": "Destacado",
+      "FOR SALE": "EN VENTA",
+      "FOR RENT": "EN ALQUILER",
+      "Reduced": "Rebajado",
+      "Hot": "Popular"
+    }
+  },
+  "propertyDetail": {
+    "premiumBadge": "Premium",
+    "viewAllPhotos": "Ver todas las fotos",
+    "topRatedAgent": "Agente Mejor Valorado",
+    "scheduleVisit": "Agendar Visita",
+    "contactAgent": "Contactar Agente",
+    "propertyFeatures": "Características de la Propiedad",
+    "size": "Tamaño",
+    "bedrooms": "Habitaciones",
+    "bathrooms": "Baños",
+    "garage": "Garaje",
+    "aboutTitle": "Acerca de esta propiedad",
+    "aboutParagraph1": "Experimenta el lujo moderno en esta impresionante residencia ubicada en {location}. Diseñada con énfasis en la vida interior y exterior, cuenta con acabados de alta gama y un concepto abierto perfecto para el entretenimiento.",
+    "aboutParagraph2": "Una propiedad extraordinaria que ofrece comodidad y estilo inigualables. Ya sea que busques un refugio sereno o un lugar para recibir invitados, esta propiedad brinda todas las comodidades que necesitas para vivir con plenitud.",
+    "readMore": "Leer más",
+    "amenitiesTitle": "Comodidades",
+    "amenities": {
+      "smartHome": "Sistema de Hogar Inteligente",
+      "swimmingPool": "Piscina",
+      "climateControl": "Calefacción y Aire Central",
+      "evCharging": "Carga para Vehículos Eléctricos"
+    }
+  },
+  "pagination": {
+    "ariaLabel": "Paginación de propiedades",
+    "previousPage": "Página anterior",
+    "nextPage": "Página siguiente",
+    "goToPage": "Ir a la página {page}"
+  }
+}
+

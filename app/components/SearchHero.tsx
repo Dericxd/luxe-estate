@@ -1,14 +1,19 @@
+"use client";
+
 import { Suspense } from "react";
 import { SearchBarWithFilters } from "./SearchBarWithFilters";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export const SearchHero = () => {
+  const { dict } = useLanguage();
+
   return (
     <section className="py-12 md:py-16">
       <div className="max-w-3xl mx-auto text-center space-y-8">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-nordic-dark dark:text-white leading-tight">
-          Find your{" "}
+          {dict.hero.titlePrefix}{" "}
           <span className="relative inline-block">
-            <span className="relative z-10 font-medium">sanctuary</span>
+            <span className="relative z-10 font-medium">{dict.hero.titleHighlight}</span>
             <span className="absolute bottom-2 left-0 w-full h-3 bg-mosque/20 -rotate-1 z-0"></span>
           </span>
           .

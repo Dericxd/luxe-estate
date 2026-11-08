@@ -5,6 +5,7 @@ import { FeaturedPropertyCard } from "./components/FeaturedPropertyCard";
 import { MarketPropertyCard } from "./components/MarketPropertyCard";
 import { Pagination } from "./components/Pagination";
 import { getFeaturedProperties, getMarketProperties } from "./lib/properties";
+import { getServerDictionary } from "./i18n/dictionaries";
 
 interface HomeProps {
   searchParams: Promise<{ 
@@ -32,9 +33,10 @@ export default async function Home({ searchParams }: HomeProps) {
     params.baths
   );
 
-  // Both fetches run server-side — no client round-trips
-  const [featuredProperties, { properties: marketProperties, totalPages, total }] =
+  // Server-side parallel fetches
+  const [{ dict }, featuredProperties, { properties: marketProperties, totalPages, total }] =
     await Promise.all([
+      getServerDictionary(),
       getFeaturedProperties(),
       getMarketProperties(page, {
         search: params.search,
@@ -57,11 +59,11 @@ export default async function Home({ searchParams }: HomeProps) {
           <section className="mb-16">
             <div className="flex items-end justify-between mb-8">
               <div>
-                <h2 className="text-2xl font-light text-nordic-dark dark:text-white">Featured Collections</h2>
-                <p className="text-nordic-muted mt-1 text-sm">Curated properties for the discerning eye.</p>
+                <h2 className="text-2xl font-light text-nordic-dark dark:text-white">{dict.home.featuredTitle}</h2>
+                <p className="text-nordic-muted mt-1 text-sm">{dict.home.featuredSubtitle}</p>
               </div>
               <a className="hidden sm:flex items-center gap-1 text-sm font-medium text-mosque hover:opacity-70 transition-opacity" href="#">
-                View all <span className="material-icons text-sm">arrow_forward</span>
+                {dict.home.viewAll} <span className="material-icons text-sm">arrow_forward</span>
               </a>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -76,15 +78,15 @@ export default async function Home({ searchParams }: HomeProps) {
         <section>
           <div className="flex items-end justify-between mb-8">
             <div>
-              <h2 className="text-2xl font-light text-nordic-dark dark:text-white">New in Market</h2>
+              <h2 className="text-2xl font-light text-nordic-dark dark:text-white">{dict.home.marketTitle}</h2>
               <p className="text-nordic-muted mt-1 text-sm">
-                Fresh opportunities — {total} properties available.
+                {dict.home.marketSubtitle.replace("{total}", String(total))}
               </p>
             </div>
             <div className="hidden md:flex bg-white dark:bg-white/5 p-1 rounded-lg">
-              <button className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm">All</button>
-              <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark dark:hover:text-white">Buy</button>
-              <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark dark:hover:text-white">Rent</button>
+              <button className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm">{dict.home.tabs.all}</button>
+              <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark dark:hover:text-white">{dict.home.tabs.buy}</button>
+              <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark dark:hover:text-white">{dict.home.tabs.rent}</button>
             </div>
           </div>
 

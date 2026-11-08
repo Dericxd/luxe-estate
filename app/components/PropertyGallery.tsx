@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 interface PropertyGalleryProps {
   images: string[];
@@ -9,6 +10,7 @@ interface PropertyGalleryProps {
 
 export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
   const [mainImageIndex, setMainImageIndex] = useState(0);
+  const { dict } = useLanguage();
 
   if (!images || images.length === 0) return null;
 
@@ -21,12 +23,14 @@ export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
           src={images[mainImageIndex]} 
         />
         <div className="absolute top-4 left-4 flex gap-2">
-          <span className="bg-mosque text-white text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">Premium</span>
+          <span className="bg-mosque text-white text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+            {dict.propertyDetail.premiumBadge}
+          </span>
         </div>
         {images.length > 1 && (
           <button className="absolute bottom-4 right-4 bg-white/90 hover:bg-white text-nordic px-4 py-2 rounded-lg text-sm font-medium shadow-lg backdrop-blur transition-all flex items-center gap-2">
             <span className="material-icons text-sm">grid_view</span>
-            View All Photos
+            {dict.propertyDetail.viewAllPhotos}
           </button>
         )}
       </div>

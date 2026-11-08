@@ -3,9 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Property } from "../lib/types";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
   const images = property.images;
+  const { dict } = useLanguage();
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -22,6 +24,8 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
   };
 
   const propertyHref = property.slug ? `/properties/${property.slug}` : `/properties/${property.id}`;
+  const localizedTag =
+    (dict.propertyCard.tags as Record<string, string>)[property.tag] ?? property.tag;
 
   return (
     <Link href={propertyHref} className="group relative rounded-xl overflow-hidden shadow-soft bg-white dark:bg-white/5 cursor-pointer block">
@@ -34,7 +38,7 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
 
         {/* Tag badge */}
         <div className="absolute top-4 left-4 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-nordic-dark dark:text-white pointer-events-none">
-          {property.tag}
+          {localizedTag}
         </div>
 
         {/* Favorite button */}
@@ -51,7 +55,7 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
             <button
               type="button"
               onClick={prevImage}
-              aria-label="Previous image"
+              aria-label={dict.propertyCard.previousImage}
               className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
             >
               <span className="material-icons text-lg">chevron_left</span>
@@ -59,7 +63,7 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
             <button
               type="button"
               onClick={nextImage}
-              aria-label="Next image"
+              aria-label={dict.propertyCard.nextImage}
               className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
             >
               <span className="material-icons text-lg">chevron_right</span>
@@ -76,7 +80,7 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
                     e.stopPropagation();
                     setCurrentImageIndex(idx);
                   }}
-                  aria-label={`Go to photo ${idx + 1}`}
+                  aria-label={dict.propertyCard.goToPhoto.replace("{number}", String(idx + 1))}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     idx === currentImageIndex
                       ? "w-5 bg-white shadow-sm"
@@ -115,10 +119,10 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
         </div>
         <div className="flex items-center gap-6 mt-6 pt-6 border-t border-nordic-dark/5 dark:border-white/10">
           <div className="flex items-center gap-2 text-nordic-muted text-sm">
-            <span className="material-icons text-lg">king_bed</span> {property.beds} Beds
+            <span className="material-icons text-lg">king_bed</span> {property.beds} {dict.propertyCard.beds}
           </div>
           <div className="flex items-center gap-2 text-nordic-muted text-sm">
-            <span className="material-icons text-lg">bathtub</span> {property.baths} Baths
+            <span className="material-icons text-lg">bathtub</span> {property.baths} {dict.propertyCard.baths}
           </div>
           <div className="flex items-center gap-2 text-nordic-muted text-sm">
             <span className="material-icons text-lg">square_foot</span> {property.area}

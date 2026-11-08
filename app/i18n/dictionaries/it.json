@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "title": "LuxeEstate - Immobili di Lusso",
+    "description": "Trova il tuo santuario"
+  },
+  "navbar": {
+    "buy": "Acquista",
+    "rent": "Affitta",
+    "sell": "Vendi",
+    "savedHomes": "Salvati",
+    "languageSelectorLabel": "Seleziona lingua"
+  },
+  "hero": {
+    "titlePrefix": "Trova il tuo",
+    "titleHighlight": "santuario",
+    "searchPlaceholder": "Cerca per città, quartiere o indirizzo...",
+    "searchButton": "Cerca",
+    "filtersButton": "Filtri",
+    "types": {
+      "All": "Tutti",
+      "House": "Casa",
+      "Apartment": "Appartamento",
+      "Villa": "Villa",
+      "Penthouse": "Attico"
+    }
+  },
+  "filtersModal": {
+    "title": "Filtri",
+    "locationLabel": "Posizione",
+    "locationPlaceholder": "Città, quartiere o indirizzo",
+    "priceRangeLabel": "Fascia di Prezzo",
+    "minPrice": "Prezzo Min",
+    "maxPrice": "Prezzo Max",
+    "propertyTypeLabel": "Tipo di Immobile",
+    "types": {
+      "Any Type": "Qualsiasi tipo",
+      "House": "Casa",
+      "Apartment": "Appartamento",
+      "Condo": "Condominio",
+      "Villa": "Villa",
+      "Penthouse": "Attico"
+    },
+    "bedrooms": "Camere da letto",
+    "bathrooms": "Bagni",
+    "any": "Tutti",
+    "amenitiesLabel": "Servizi e Caratteristiche",
+    "pool": "Piscina",
+    "gym": "Palestra",
+    "parking": "Parcheggio",
+    "clearAll": "Cancella tutti i filtri",
+    "showResults": "Mostra Risultati"
+  },
+  "home": {
+    "featuredTitle": "Collezioni in Evidenza",
+    "featuredSubtitle": "Proprietà selezionate per gli occhi più esigenti.",
+    "viewAll": "Vedi tutte",
+    "marketTitle": "Novità sul Mercato",
+    "marketSubtitle": "Nuove opportunità — {total} proprietà disponibili.",
+    "tabs": {
+      "all": "Tutte",
+      "buy": "Acquista",
+      "rent": "Affitta"
+    }
+  },
+  "propertyCard": {
+    "beds": "Camere",
+    "baths": "Bagni",
+    "perMonth": "/mese",
+    "previousImage": "Immagine precedente",
+    "nextImage": "Immagine successiva",
+    "goToPhoto": "Vai alla foto {number}",
+    "tags": {
+      "Exclusive": "Esclusivo",
+      "New": "Nuovo",
+      "Featured": "In Evidenza",
+      "FOR SALE": "IN VENDITA",
+      "FOR RENT": "IN AFFITTO",
+      "Reduced": "Ribassato",
+      "Hot": "Popolare"
+    }
+  },
+  "propertyDetail": {
+    "premiumBadge": "Premium",
+    "viewAllPhotos": "Vedi tutte le foto",
+    "topRatedAgent": "Agente Più Votato",
+    "scheduleVisit": "Prenota Visita",
+    "contactAgent": "Contatta Agente",
+    "propertyFeatures": "Caratteristiche dell'Immobile",
+    "size": "Superficie",
+    "bedrooms": "Camere",
+    "bathrooms": "Bagni",
+    "garage": "Garage",
+    "aboutTitle": "Informazioni su questa proprietà",
+    "aboutParagraph1": "Vivi il lusso moderno in questa splendida residenza situata a {location}. Progettata con particolare attenzione agli spazi interni ed esterni, la proprietà offre finiture di pregio e un open space perfetto per ricevere ospiti.",
+    "aboutParagraph2": "Una proprietà straordinaria che offre comfort e stile senza pari. Che tu stia cercando un rifugio sereno o un luogo per accogliere gli amici, questa dimora dispone di tutti i servizi necessari per vivere al meglio.",
+    "readMore": "Leggi di più",
+    "amenitiesTitle": "Servizi",
+    "amenities": {
+      "smartHome": "Sistema Smart Home",
+      "swimmingPool": "Piscina",
+      "climateControl": "Riscaldamento e Climatizzazione Centrale",
+      "evCharging": "Ricarica per Veicoli Elettrici"
+    }
+  },
+  "pagination": {
+    "ariaLabel": "Paginazione immobili",
+    "previousPage": "Pagina precedente",
+    "nextPage": "Pagina successiva",
+    "goToPage": "Vai alla pagina {page}"
+  }
+}
+

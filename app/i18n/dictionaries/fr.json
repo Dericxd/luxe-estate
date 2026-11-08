@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "title": "LuxeEstate - Immobilier de Prestige",
+    "description": "Trouvez votre sanctuaire"
+  },
+  "navbar": {
+    "buy": "Acheter",
+    "rent": "Louer",
+    "sell": "Vendre",
+    "savedHomes": "Favoris",
+    "languageSelectorLabel": "Choisir la langue"
+  },
+  "hero": {
+    "titlePrefix": "Trouvez votre",
+    "titleHighlight": "sanctuaire",
+    "searchPlaceholder": "Rechercher par ville, quartier ou adresse...",
+    "searchButton": "Rechercher",
+    "filtersButton": "Filtres",
+    "types": {
+      "All": "Tous",
+      "House": "Maison",
+      "Apartment": "Appartement",
+      "Villa": "Villa",
+      "Penthouse": "Penthouse"
+    }
+  },
+  "filtersModal": {
+    "title": "Filtres",
+    "locationLabel": "Emplacement",
+    "locationPlaceholder": "Ville, quartier ou adresse",
+    "priceRangeLabel": "Fourchette de Prix",
+    "minPrice": "Prix Min",
+    "maxPrice": "Prix Max",
+    "propertyTypeLabel": "Type de Bien",
+    "types": {
+      "Any Type": "Tout type",
+      "House": "Maison",
+      "Apartment": "Appartement",
+      "Condo": "Copropriété",
+      "Villa": "Villa",
+      "Penthouse": "Penthouse"
+    },
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "any": "Tous",
+    "amenitiesLabel": "Équipements et Caractéristiques",
+    "pool": "Piscine",
+    "gym": "Salle de sport",
+    "parking": "Parking",
+    "clearAll": "Effacer tous les filtres",
+    "showResults": "Afficher les Résultats"
+  },
+  "home": {
+    "featuredTitle": "Collections à la Une",
+    "featuredSubtitle": "Des propriétés d'exception pour les regards les plus exigeants.",
+    "viewAll": "Voir tout",
+    "marketTitle": "Nouveautés sur le Marché",
+    "marketSubtitle": "Nouvelles opportunités — {total} biens disponibles.",
+    "tabs": {
+      "all": "Tous",
+      "buy": "Acheter",
+      "rent": "Louer"
+    }
+  },
+  "propertyCard": {
+    "beds": "Ch.",
+    "baths": "Sdb.",
+    "perMonth": "/mois",
+    "previousImage": "Image précédente",
+    "nextImage": "Image suivante",
+    "goToPhoto": "Aller à la photo {number}",
+    "tags": {
+      "Exclusive": "Exclusif",
+      "New": "Nouveau",
+      "Featured": "À la Une",
+      "FOR SALE": "À VENDRE",
+      "FOR RENT": "À LOUER",
+      "Reduced": "Prix Réduit",
+      "Hot": "Populaire"
+    }
+  },
+  "propertyDetail": {
+    "premiumBadge": "Premium",
+    "viewAllPhotos": "Voir toutes les photos",
+    "topRatedAgent": "Agent le Mieux Noté",
+    "scheduleVisit": "Planifier une Visite",
+    "contactAgent": "Contacter l'Agent",
+    "propertyFeatures": "Caractéristiques du Bien",
+    "size": "Surface",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "garage": "Garage",
+    "aboutTitle": "À propos de ce bien",
+    "aboutParagraph1": "Découvrez le luxe moderne dans cette somptueuse demeure située à {location}. Conçue pour harmoniser les espaces intérieurs et extérieurs, la résidence offre des finitions haut de gamme et un espace ouvert idéal pour recevoir.",
+    "aboutParagraph2": "Une propriété remarquable offrant un confort et un style incomparables. Que vous recherchiez une retraite paisible ou un lieu pour accueillir vos invités, ce bien réunit toutes les prestations nécessaires pour vivre pleinement.",
+    "readMore": "Lire la suite",
+    "amenitiesTitle": "Prestations",
+    "amenities": {
+      "smartHome": "Système Domotique Intelligent",
+      "swimmingPool": "Piscine",
+      "climateControl": "Chauffage et Climatisation Centralisés",
+      "evCharging": "Borne de Recharge Électrique"
+    }
+  },
+  "pagination": {
+    "ariaLabel": "Pagination des biens",
+    "previousPage": "Page précédente",
+    "nextPage": "Page suivante",
+    "goToPage": "Aller à la page {page}"
+  }
+}
+

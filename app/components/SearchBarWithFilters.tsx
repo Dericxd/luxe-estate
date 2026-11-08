@@ -3,10 +3,14 @@
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SearchFiltersModal } from "./SearchFiltersModal";
+import { useLanguage } from "../i18n/LanguageContext";
+
+const HERO_FILTER_TYPES = ["All", "House", "Apartment", "Villa", "Penthouse"] as const;
 
 export const SearchBarWithFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { dict } = useLanguage();
   const [searchValue, setSearchValue] = useState(searchParams.get("search") || "");
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
 
@@ -44,7 +48,7 @@ export const SearchBarWithFilters = () => {
         </div>
         <input
           className="block w-full pl-12 pr-4 py-4 rounded-xl border-none bg-white dark:bg-white/5 text-nordic-dark dark:text-white shadow-soft placeholder-nordic-muted/60 focus:ring-2 focus:ring-mosque focus:bg-white dark:focus:bg-white/10 transition-all text-lg"
-          placeholder="Search by city, neighborhood, or address..."
+          placeholder={dict.hero.searchPlaceholder}
           type="text"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -54,61 +58,24 @@ export const SearchBarWithFilters = () => {
           onClick={handleSearch}
           className="absolute inset-y-2 right-2 px-6 bg-mosque hover:bg-mosque/90 text-white font-medium rounded-lg transition-colors flex items-center justify-center shadow-lg shadow-mosque/20"
         >
-          Search
+          {dict.hero.searchButton}
         </button>
       </div>
 
       <div className="flex items-center justify-center gap-3 overflow-x-auto hide-scroll py-2 px-4 -mx-4">
-        <button 
-          onClick={() => handleTypeSelect("All")}
-          className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all ${
-            currentType === "All" 
-              ? "bg-nordic-dark text-white shadow-lg shadow-nordic-dark/10 hover:-translate-y-0.5" 
-              : "bg-white dark:bg-white/5 border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 hover:bg-mosque/5"
-          }`}
-        >
-          All
-        </button>
-        <button 
-          onClick={() => handleTypeSelect("House")}
-          className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all ${
-            currentType === "House" 
-              ? "bg-nordic-dark text-white shadow-lg shadow-nordic-dark/10 hover:-translate-y-0.5" 
-              : "bg-white dark:bg-white/5 border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 hover:bg-mosque/5"
-          }`}
-        >
-          House
-        </button>
-        <button 
-          onClick={() => handleTypeSelect("Apartment")}
-          className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all ${
-            currentType === "Apartment" 
-              ? "bg-nordic-dark text-white shadow-lg shadow-nordic-dark/10 hover:-translate-y-0.5" 
-              : "bg-white dark:bg-white/5 border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 hover:bg-mosque/5"
-          }`}
-        >
-          Apartment
-        </button>
-        <button 
-          onClick={() => handleTypeSelect("Villa")}
-          className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all ${
-            currentType === "Villa" 
-              ? "bg-nordic-dark text-white shadow-lg shadow-nordic-dark/10 hover:-translate-y-0.5" 
-              : "bg-white dark:bg-white/5 border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 hover:bg-mosque/5"
-          }`}
-        >
-          Villa
-        </button>
-        <button 
-          onClick={() => handleTypeSelect("Penthouse")}
-          className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all ${
-            currentType === "Penthouse" 
-              ? "bg-nordic-dark text-white shadow-lg shadow-nordic-dark/10 hover:-translate-y-0.5" 
-              : "bg-white dark:bg-white/5 border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 hover:bg-mosque/5"
-          }`}
-        >
-          Penthouse
-        </button>
+        {HERO_FILTER_TYPES.map((typeKey) => (
+          <button
+            key={typeKey}
+            onClick={() => handleTypeSelect(typeKey)}
+            className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all ${
+              currentType === typeKey
+                ? "bg-nordic-dark text-white shadow-lg shadow-nordic-dark/10 hover:-translate-y-0.5"
+                : "bg-white dark:bg-white/5 border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 hover:bg-mosque/5"
+            }`}
+          >
+            {dict.hero.types[typeKey]}
+          </button>
+        ))}
         
         <div className="w-px h-6 bg-nordic-dark/10 mx-2"></div>
         
@@ -116,7 +83,7 @@ export const SearchBarWithFilters = () => {
           onClick={() => setIsFiltersModalOpen(true)}
           className="whitespace-nowrap flex items-center gap-1 px-4 py-2 rounded-full text-nordic-dark dark:text-white font-medium text-sm hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
         >
-          <span className="material-icons text-base">tune</span> Filters
+          <span className="material-icons text-base">tune</span> {dict.hero.filtersButton}
         </button>
       </div>
 

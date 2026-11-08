@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface PaginationProps {
   currentPage: number;
@@ -11,6 +12,7 @@ interface PaginationProps {
 export function Pagination({ currentPage, totalPages }: PaginationProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { dict } = useLanguage();
 
   if (totalPages <= 1) return null;
 
@@ -50,14 +52,14 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
 
   return (
     <nav
-      aria-label="Property pagination"
+      aria-label={dict.pagination.ariaLabel}
       className="mt-12 flex items-center justify-center gap-1"
     >
       {/* Previous */}
       {currentPage > 1 ? (
         <Link
           href={createPageUrl(currentPage - 1)}
-          aria-label="Previous page"
+          aria-label={dict.pagination.previousPage}
           className="flex items-center justify-center w-10 h-10 rounded-lg bg-white dark:bg-white/5 border border-nordic-dark/10 dark:border-white/10 text-nordic-dark dark:text-white hover:border-mosque hover:text-mosque transition-all"
         >
           <span className="material-icons text-lg">chevron_left</span>
@@ -81,7 +83,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
           <Link
             key={page}
             href={createPageUrl(page)}
-            aria-label={`Go to page ${page}`}
+            aria-label={dict.pagination.goToPage.replace('{page}', String(page))}
             aria-current={page === currentPage ? 'page' : undefined}
             className={`flex items-center justify-center w-10 h-10 rounded-lg text-sm font-medium transition-all ${
               page === currentPage
@@ -98,7 +100,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
       {currentPage < totalPages ? (
         <Link
           href={createPageUrl(currentPage + 1)}
-          aria-label="Next page"
+          aria-label={dict.pagination.nextPage}
           className="flex items-center justify-center w-10 h-10 rounded-lg bg-white dark:bg-white/5 border border-nordic-dark/10 dark:border-white/10 text-nordic-dark dark:text-white hover:border-mosque hover:text-mosque transition-all"
         >
           <span className="material-icons text-lg">chevron_right</span>

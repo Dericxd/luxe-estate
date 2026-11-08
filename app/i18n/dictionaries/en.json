@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "title": "LuxeEstate - Premium Real Estate",
+    "description": "Find your sanctuary"
+  },
+  "navbar": {
+    "buy": "Buy",
+    "rent": "Rent",
+    "sell": "Sell",
+    "savedHomes": "Saved Homes",
+    "languageSelectorLabel": "Select language"
+  },
+  "hero": {
+    "titlePrefix": "Find your",
+    "titleHighlight": "sanctuary",
+    "searchPlaceholder": "Search by city, neighborhood, or address...",
+    "searchButton": "Search",
+    "filtersButton": "Filters",
+    "types": {
+      "All": "All",
+      "House": "House",
+      "Apartment": "Apartment",
+      "Villa": "Villa",
+      "Penthouse": "Penthouse"
+    }
+  },
+  "filtersModal": {
+    "title": "Filters",
+    "locationLabel": "Location",
+    "locationPlaceholder": "City, neighborhood, or address",
+    "priceRangeLabel": "Price Range",
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price",
+    "propertyTypeLabel": "Property Type",
+    "types": {
+      "Any Type": "Any Type",
+      "House": "House",
+      "Apartment": "Apartment",
+      "Condo": "Condo",
+      "Villa": "Villa",
+      "Penthouse": "Penthouse"
+    },
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "any": "Any",
+    "amenitiesLabel": "Amenities & Features",
+    "pool": "Pool",
+    "gym": "Gym",
+    "parking": "Parking",
+    "clearAll": "Clear all filters",
+    "showResults": "Show Results"
+  },
+  "home": {
+    "featuredTitle": "Featured Collections",
+    "featuredSubtitle": "Curated properties for the discerning eye.",
+    "viewAll": "View all",
+    "marketTitle": "New in Market",
+    "marketSubtitle": "Fresh opportunities — {total} properties available.",
+    "tabs": {
+      "all": "All",
+      "buy": "Buy",
+      "rent": "Rent"
+    }
+  },
+  "propertyCard": {
+    "beds": "Beds",
+    "baths": "Baths",
+    "perMonth": "/mo",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "goToPhoto": "Go to photo {number}",
+    "tags": {
+      "Exclusive": "Exclusive",
+      "New": "New",
+      "Featured": "Featured",
+      "FOR SALE": "FOR SALE",
+      "FOR RENT": "FOR RENT",
+      "Reduced": "Reduced",
+      "Hot": "Hot"
+    }
+  },
+  "propertyDetail": {
+    "premiumBadge": "Premium",
+    "viewAllPhotos": "View All Photos",
+    "topRatedAgent": "Top Rated Agent",
+    "scheduleVisit": "Schedule Visit",
+    "contactAgent": "Contact Agent",
+    "propertyFeatures": "Property Features",
+    "size": "Size",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "garage": "Garage",
+    "aboutTitle": "About this home",
+    "aboutParagraph1": "Experience modern luxury in this stunning home located in {location}. Designed with an emphasis on indoor-outdoor living, the residence features high-end finishes and an open concept perfect for entertaining.",
+    "aboutParagraph2": "A remarkable property offering unparalleled comfort and style. Whether you are looking for a serene retreat or a place to host guests, this property provides all the amenities you need to live beautifully.",
+    "readMore": "Read more",
+    "amenitiesTitle": "Amenities",
+    "amenities": {
+      "smartHome": "Smart Home System",
+      "swimmingPool": "Swimming Pool",
+      "climateControl": "Central Heating & Cooling",
+      "evCharging": "Electric Vehicle Charging"
+    }
+  },
+  "pagination": {
+    "ariaLabel": "Property pagination",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "goToPage": "Go to page {page}"
+  }
+}
+

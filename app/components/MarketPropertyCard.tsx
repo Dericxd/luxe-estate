@@ -2,10 +2,14 @@
 
 import Link from "next/link";
 import { Property } from "../lib/types";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export const MarketPropertyCard = ({ property }: { property: Property }) => {
+  const { dict } = useLanguage();
   const propertyHref = property.slug ? `/properties/${property.slug}` : `/properties/${property.id}`;
-  
+  const localizedTag =
+    (dict.propertyCard.tags as Record<string, string>)[property.tag] ?? property.tag;
+
   return (
     <Link
       href={propertyHref}
@@ -26,7 +30,7 @@ export const MarketPropertyCard = ({ property }: { property: Property }) => {
         <div
           className={`absolute bottom-3 left-3 text-white text-xs font-bold px-2 py-1 rounded ${property.tag_color ?? 'bg-nordic-dark/90'}`}
         >
-          {property.tag}
+          {localizedTag}
         </div>
       </div>
       <div className="p-4 flex flex-col flex-grow">
@@ -35,7 +39,7 @@ export const MarketPropertyCard = ({ property }: { property: Property }) => {
             {property.listing_type === 'rent' ? (
                <>
                  {property.price_label.split('/mo')[0]}
-                 <span className="text-sm font-normal text-nordic-muted">/mo</span>
+                 <span className="text-sm font-normal text-nordic-muted">{dict.propertyCard.perMonth}</span>
                </>
             ) : property.price_label}
           </h3>
