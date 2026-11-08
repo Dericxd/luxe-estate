@@ -1,12 +1,27 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSelector } from "./LanguageSelector";
 import { useLanguage } from "../i18n/LanguageContext";
+import { useAuth } from "../context/AuthContext";
 
 export const Navbar = () => {
   const { dict } = useLanguage();
+  const { user, avatarUrl, displayName, signOut } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-nordic-dark/10 dark:border-white/5 transition-colors duration-300">
@@ -34,11 +49,72 @@ export const Navbar = () => {
               <span className="material-icons">notifications_none</span>
               <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-background-light dark:border-background-dark transition-colors duration-300"></span>
             </button>
-            <button className="flex items-center gap-2 pl-2 border-l border-nordic-dark/10 dark:border-white/10 ml-2">
-              <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all">
-                <img alt="Profile" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAWhQZ663Bd08kmzjbOPmUk4UIxYooNONShMEFXLR-DtmVi6Oz-TiaY77SPwFk7g0OobkeZEOMvt6v29mSOD0Xm2g95WbBG3ZjWXmiABOUwGU0LOySRfVDo-JTXQ0-gtwjWxbmue0qDm91m-zEOEZwAW6iRFB1qC1bAU-wkjxm67Sbztq8w7srHkFT9bVEC86qG-FzhOBTomhAurNRmx9l8Yfqabk328NfdKuVLckgCdaPsNFE3yN65MeoRi05GA_gXIMwG4YDIeA" />
-              </div>
-            </button>
+
+            <div className="relative pl-2 border-l border-nordic-dark/10 dark:border-white/10 ml-2" ref={dropdownRef}>
+              {user ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setMenuOpen((prev) => !prev)}
+                    className="flex items-center gap-2 cursor-pointer"
+                    aria-label="User menu"
+                  >
+                    <div className="w-9 h-9 rounded-full bg-gray-200 dark:bg-white/10 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all flex items-center justify-center">
+                      {avatarUrl ? (
+                        <img
+                          alt={displayName || "Profile"}
+                          className="w-full h-full object-cover"
+                          src={avatarUrl}
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <span className="material-icons text-nordic-dark dark:text-white text-xl">
+                          person
+                        </span>
+                      )}
+                    </div>
+                  </button>
+
+                  {menuOpen && (
+                    <div className="absolute right-0 mt-2 w-56 rounded-xl bg-white dark:bg-[#152e2a] shadow-soft border border-nordic-dark/10 dark:border-white/10 py-2 z-50">
+                      <div className="px-4 py-2 border-b border-nordic-dark/5 dark:border-white/5">
+                        {displayName && (
+                          <p className="text-sm font-medium text-nordic-dark dark:text-white truncate">
+                            {displayName}
+                          </p>
+                        )}
+                        {user.email && (
+                          <p className="text-xs text-nordic-muted dark:text-gray-400 truncate">
+                            {user.email}
+                          </p>
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setMenuOpen(false);
+                          await signOut();
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-nordic-dark/5 dark:hover:bg-white/5 transition-colors flex items-center gap-2 cursor-pointer"
+                      >
+                        <span className="material-icons text-base">logout</span>
+                        <span>{dict.navbar.signOut}</span>
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link
+                  href="/login"
+                  className="flex items-center gap-2"
+                  title={dict.navbar.signIn}
+                >
+                  <div className="w-9 h-9 rounded-full bg-mosque/10 dark:bg-white/10 text-mosque dark:text-white overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all flex items-center justify-center">
+                    <span className="material-icons text-xl">person_outline</span>
+                  </div>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -8,7 +8,20 @@
     "rent": "Alquilar",
     "sell": "Vender",
     "savedHomes": "Guardados",
-    "languageSelectorLabel": "Seleccionar idioma"
+    "languageSelectorLabel": "Seleccionar idioma",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión"
+  },
+  "login": {
+    "title": "Bienvenido a LuxeEstate",
+    "subtitle": "Descubre propiedades exclusivas en todo el mundo.",
+    "continueWithGoogle": "Continuar con Google",
+    "continueWithGithub": "Continuar con GitHub",
+    "noAccount": "¿No tienes una cuenta?",
+    "signUp": "Regístrate",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio",
+    "helpCenter": "Centro de Ayuda"
   },
   "hero": {
     "titlePrefix": "Encuentra tu",
