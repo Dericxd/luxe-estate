@@ -15,7 +15,13 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      router.replace("/");
+      const params = new URLSearchParams(window.location.search);
+      const redirectTo = params.get("redirectTo");
+      const target =
+        redirectTo && redirectTo.startsWith("/") && !redirectTo.startsWith("//")
+          ? redirectTo
+          : "/";
+      router.replace(target);
     }
   }, [user, router]);
 

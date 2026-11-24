@@ -259,3 +259,24 @@ export async function getPropertyBySlugOrId(slugOrId: string): Promise<Property 
 
   return applyUniqueImages([data], imageMap)[0];
 }
+
+/**
+ * Fetches all properties for the admin dashboard list.
+ */
+export async function getAllPropertiesForAdmin(): Promise<Property[]> {
+  const [{ data, error }, imageMap] = await Promise.all([
+    supabase
+      .from('properties')
+      .select('*')
+      .order('created_at', { ascending: false }),
+    getUniqueImagesByPropertyId(),
+  ]);
+
+  if (error || !data) {
+    if (error) console.error('[getAllPropertiesForAdmin] Supabase error:', error.message);
+    return [];
+  }
+
+  return applyUniqueImages(data, imageMap);
+}
+

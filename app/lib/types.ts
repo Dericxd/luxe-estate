@@ -23,3 +23,18 @@ export interface PaginatedProperties {
   pageSize: number;
   totalPages: number;
 }
+
+export type UserRole = 'admin' | 'broker' | 'agent' | 'viewer';
+export type UserStatus = 'active' | 'inactive' | 'suspended';
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  full_name: string | null;
+  avatar_url: string | null;
+  role: UserRole;
+  status: UserStatus;
+  created_at: string;
+  updated_at: string;
+}
+

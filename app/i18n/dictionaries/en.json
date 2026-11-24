@@ -10,7 +10,8 @@
     "savedHomes": "Saved Homes",
     "languageSelectorLabel": "Select language",
     "signIn": "Sign In",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard"
   },
   "login": {
     "title": "Welcome to LuxeEstate",
@@ -120,6 +121,75 @@
     "previousPage": "Previous page",
     "nextPage": "Next page",
     "goToPage": "Go to page {page}"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "subtitle": "Manage your portfolio and user roles.",
+    "tabs": {
+      "properties": "Properties",
+      "users": "Users"
+    },
+    "properties": {
+      "title": "My Properties",
+      "subtitle": "Manage your portfolio and track performance.",
+      "totalListings": "Total Listings",
+      "activeProperties": "Active Properties",
+      "pendingSale": "For Rent / Featured",
+      "filter": "Filter",
+      "addProperty": "Add New Property",
+      "searchPlaceholder": "Search by title or location...",
+      "tableHeaders": {
+        "details": "Property Details",
+        "price": "Price",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "pending": "For Rent",
+        "featured": "Featured"
+      },
+      "beds": "Beds",
+      "baths": "Baths",
+      "viewDetail": "View detail",
+      "delete": "Delete"
+    },
+    "users": {
+      "title": "User Directory",
+      "subtitle": "Manage user access and roles for your properties.",
+      "searchPlaceholder": "Search by name, email...",
+      "addUser": "Add User",
+      "tabs": {
+        "all": "All Users",
+        "admins": "Admins",
+        "brokers": "Brokers",
+        "agents": "Agents",
+        "viewers": "Viewers"
+      },
+      "tableHeaders": {
+        "details": "User Details",
+        "roleStatus": "Role & Status",
+        "registered": "Registered",
+        "actions": "Actions"
+      },
+      "roles": {
+        "admin": "Administrator",
+        "broker": "Broker",
+        "agent": "Agent",
+        "viewer": "Viewer"
+      },
+      "statuses": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "suspended": "Suspended"
+      },
+      "changeRole": "Change Role",
+      "suspendUser": "Suspend User",
+      "activateUser": "Activate User",
+      "successUpdate": "Role updated successfully",
+      "errorUpdate": "Error updating role",
+      "noUsersFound": "No users found"
+    }
   }
 }
 

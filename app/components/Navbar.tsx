@@ -9,7 +9,7 @@ import { useAuth } from "../context/AuthContext";
 
 export const Navbar = () => {
   const { dict } = useLanguage();
-  const { user, avatarUrl, displayName, signOut } = useAuth();
+  const { user, avatarUrl, displayName, role, isAdmin, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -38,6 +38,15 @@ export const Navbar = () => {
             <a className="text-nordic-dark/70 dark:text-white/70 hover:text-nordic-dark dark:hover:text-white font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all" href="#">{dict.navbar.rent}</a>
             <a className="text-nordic-dark/70 dark:text-white/70 hover:text-nordic-dark dark:hover:text-white font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all" href="#">{dict.navbar.sell}</a>
             <a className="text-nordic-dark/70 dark:text-white/70 hover:text-nordic-dark dark:hover:text-white font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all" href="#">{dict.navbar.savedHomes}</a>
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="text-nordic-dark/80 dark:text-white/80 hover:text-mosque dark:hover:text-white font-semibold text-sm hover:border-b-2 hover:border-mosque px-1 py-1 transition-all flex items-center gap-1"
+              >
+                <span className="material-icons text-base text-mosque">dashboard</span>
+                <span>{dict.navbar.dashboard}</span>
+              </Link>
+            )}
           </div>
           <div className="flex items-center space-x-3 sm:space-x-5">
             <LanguageSelector />
@@ -78,17 +87,36 @@ export const Navbar = () => {
                   {menuOpen && (
                     <div className="absolute right-0 mt-2 w-56 rounded-xl bg-white dark:bg-[#152e2a] shadow-soft border border-nordic-dark/10 dark:border-white/10 py-2 z-50">
                       <div className="px-4 py-2 border-b border-nordic-dark/5 dark:border-white/5">
-                        {displayName && (
-                          <p className="text-sm font-medium text-nordic-dark dark:text-white truncate">
-                            {displayName}
-                          </p>
-                        )}
+                        <div className="flex items-center justify-between gap-2">
+                          {displayName && (
+                            <p className="text-sm font-medium text-nordic-dark dark:text-white truncate">
+                              {displayName}
+                            </p>
+                          )}
+                          {role && (
+                            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-mosque/10 text-mosque border border-mosque/20">
+                              {role}
+                            </span>
+                          )}
+                        </div>
                         {user.email && (
-                          <p className="text-xs text-nordic-muted dark:text-gray-400 truncate">
+                          <p className="text-xs text-nordic-muted dark:text-gray-400 truncate mt-0.5">
                             {user.email}
                           </p>
                         )}
                       </div>
+
+                      {isAdmin && (
+                        <Link
+                          href="/admin"
+                          onClick={() => setMenuOpen(false)}
+                          className="w-full text-left px-4 py-2 text-sm text-nordic-dark dark:text-white hover:bg-nordic-dark/5 dark:hover:bg-white/5 transition-colors flex items-center gap-2 cursor-pointer border-b border-nordic-dark/5 dark:border-white/5"
+                        >
+                          <span className="material-icons text-base text-mosque">dashboard</span>
+                          <span>{dict.navbar.dashboard}</span>
+                        </Link>
+                      )}
+
                       <button
                         type="button"
                         onClick={async () => {

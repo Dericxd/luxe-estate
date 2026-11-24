@@ -11,14 +11,30 @@ export default function AuthCallbackPage() {
     const handleCallback = async () => {
       const searchParams = new URLSearchParams(window.location.search);
       const code = searchParams.get("code");
+      const redirectTo = searchParams.get("redirectTo");
+      const safeTarget =
+        redirectTo && redirectTo.startsWith("/") && !redirectTo.startsWith("//")
+          ? redirectTo
+          : "/";
 
+      let accessToken: string | null = null;
       if (code) {
-        await supabase.auth.exchangeCodeForSession(code);
+        const { data } = await supabase.auth.exchangeCodeForSession(code);
+        accessToken = data.session?.access_token ?? null;
       } else {
-        await supabase.auth.getSession();
+        const { data } = await supabase.auth.getSession();
+        accessToken = data.session?.access_token ?? null;
       }
 
-      router.replace("/");
+      if (accessToken) {
+        await fetch("/api/auth/session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ accessToken }),
+        });
+      }
+
+      router.replace(safeTarget);
     };
 
     handleCallback();

@@ -7,6 +7,7 @@ import {
   Locale,
   SUPPORTED_LOCALES,
 } from "./app/i18n/config";
+import { verifyAdmin } from "./app/lib/auth/verify-admin";
 
 function detectPreferredLocale(request: NextRequest): Locale {
   const acceptLanguage = request.headers.get("accept-language");
@@ -33,7 +34,33 @@ function detectPreferredLocale(request: NextRequest): Locale {
   return DEFAULT_LOCALE;
 }
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // 1. Proteger rutas administrativas (/admin y subrutas) con política fail-closed
+  if (pathname.startsWith("/admin")) {
+    const token = request.cookies.get("luxe-auth-token")?.value;
+    const check = await verifyAdmin(token);
+
+    if (!check.ok) {
+      if (check.reason === "no-token" || check.reason === "invalid-token") {
+        const loginUrl = new URL("/login", request.url);
+        loginUrl.searchParams.set("redirectTo", pathname);
+        const redirectResp = NextResponse.redirect(loginUrl);
+
+        if (check.reason === "invalid-token") {
+          redirectResp.cookies.delete("luxe-auth-token");
+          redirectResp.cookies.delete("luxe-auth-role");
+        }
+        return redirectResp;
+      }
+
+      // Usuario sin rol admin activo o error de verificación (fail-closed)
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
+  // 2. Gestión de idioma (cookie i18n)
   const response = NextResponse.next();
   const existingLocale = request.cookies.get(COOKIE_NAME)?.value;
 
@@ -54,4 +81,3 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico).*)",
   ],
 };
-

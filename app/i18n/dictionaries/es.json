@@ -10,7 +10,8 @@
     "savedHomes": "Guardados",
     "languageSelectorLabel": "Seleccionar idioma",
     "signIn": "Iniciar sesión",
-    "signOut": "Cerrar sesión"
+    "signOut": "Cerrar sesión",
+    "dashboard": "Dashboard"
   },
   "login": {
     "title": "Bienvenido a LuxeEstate",
@@ -120,6 +121,75 @@
     "previousPage": "Página anterior",
     "nextPage": "Página siguiente",
     "goToPage": "Ir a la página {page}"
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "subtitle": "Gestiona tu portafolio y los roles de usuario.",
+    "tabs": {
+      "properties": "Propiedades",
+      "users": "Usuarios"
+    },
+    "properties": {
+      "title": "Mis Propiedades",
+      "subtitle": "Administra tu inventario y supervisa el rendimiento.",
+      "totalListings": "Total Propiedades",
+      "activeProperties": "En Venta (Activas)",
+      "pendingSale": "En Alquiler / Destacadas",
+      "filter": "Filtrar",
+      "addProperty": "Nueva Propiedad",
+      "searchPlaceholder": "Buscar por título o ubicación...",
+      "tableHeaders": {
+        "details": "Detalles del Inmueble",
+        "price": "Precio",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "status": {
+        "active": "Activa",
+        "pending": "En Alquiler",
+        "featured": "Destacada"
+      },
+      "beds": "Hab",
+      "baths": "Baños",
+      "viewDetail": "Ver detalle",
+      "delete": "Eliminar"
+    },
+    "users": {
+      "title": "Directorio de Usuarios",
+      "subtitle": "Gestiona el acceso y los roles de los usuarios en tus propiedades.",
+      "searchPlaceholder": "Buscar por nombre, email...",
+      "addUser": "Agregar Usuario",
+      "tabs": {
+        "all": "Todos los Usuarios",
+        "admins": "Administradores",
+        "brokers": "Brokers",
+        "agents": "Agentes",
+        "viewers": "Lectores"
+      },
+      "tableHeaders": {
+        "details": "Detalles del Usuario",
+        "roleStatus": "Rol y Estado",
+        "registered": "Registrado",
+        "actions": "Acciones"
+      },
+      "roles": {
+        "admin": "Administrador",
+        "broker": "Broker",
+        "agent": "Agente",
+        "viewer": "Lector"
+      },
+      "statuses": {
+        "active": "Activo",
+        "inactive": "Inactivo",
+        "suspended": "Suspendido"
+      },
+      "changeRole": "Cambiar Rol",
+      "suspendUser": "Suspender Usuario",
+      "activateUser": "Activar Usuario",
+      "successUpdate": "Rol actualizado con éxito",
+      "errorUpdate": "Error al actualizar el rol",
+      "noUsersFound": "No se encontraron usuarios"
+    }
   }
 }
 

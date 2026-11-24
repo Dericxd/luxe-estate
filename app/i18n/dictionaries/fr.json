@@ -10,7 +10,8 @@
     "savedHomes": "Favoris",
     "languageSelectorLabel": "Choisir la langue",
     "signIn": "Connexion",
-    "signOut": "Déconnexion"
+    "signOut": "Déconnexion",
+    "dashboard": "Tableau de bord"
   },
   "login": {
     "title": "Bienvenue sur LuxeEstate",
@@ -120,6 +121,75 @@
     "previousPage": "Page précédente",
     "nextPage": "Page suivante",
     "goToPage": "Aller à la page {page}"
+  },
+  "admin": {
+    "title": "Tableau de Bord Admin",
+    "subtitle": "Gérez votre portefeuille et les rôles d'utilisateurs.",
+    "tabs": {
+      "properties": "Propriétés",
+      "users": "Utilisateurs"
+    },
+    "properties": {
+      "title": "Mes Propriétés",
+      "subtitle": "Gérez votre portefeuille et suivez les performances.",
+      "totalListings": "Total Propriétés",
+      "activeProperties": "À Vendre (Actives)",
+      "pendingSale": "À Louer / En Vedette",
+      "filter": "Filtrer",
+      "addProperty": "Nouvelle Propriété",
+      "searchPlaceholder": "Rechercher par titre ou lieu...",
+      "tableHeaders": {
+        "details": "Détails du Bien",
+        "price": "Prix",
+        "status": "Statut",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "pending": "À Louer",
+        "featured": "En Vedette"
+      },
+      "beds": "Ch.",
+      "baths": "Sdb.",
+      "viewDetail": "Voir détail",
+      "delete": "Supprimer"
+    },
+    "users": {
+      "title": "Répertoire des Utilisateurs",
+      "subtitle": "Gérez l'accès et les rôles des utilisateurs pour vos propriétés.",
+      "searchPlaceholder": "Rechercher par nom, email...",
+      "addUser": "Ajouter un Utilisateur",
+      "tabs": {
+        "all": "Tous les Utilisateurs",
+        "admins": "Administrateurs",
+        "brokers": "Courtiers",
+        "agents": "Agents",
+        "viewers": "Lecteurs"
+      },
+      "tableHeaders": {
+        "details": "Détails de l'Utilisateur",
+        "roleStatus": "Rôle et Statut",
+        "registered": "Inscrit",
+        "actions": "Actions"
+      },
+      "roles": {
+        "admin": "Administrateur",
+        "broker": "Courtier",
+        "agent": "Agent",
+        "viewer": "Lecteur"
+      },
+      "statuses": {
+        "active": "Actif",
+        "inactive": "Inactif",
+        "suspended": "Suspendu"
+      },
+      "changeRole": "Changer le Rôle",
+      "suspendUser": "Suspendre",
+      "activateUser": "Activer",
+      "successUpdate": "Rôle mis à jour avec succès",
+      "errorUpdate": "Erreur lors de la mise à jour du rôle",
+      "noUsersFound": "Aucun utilisateur trouvé"
+    }
   }
 }
 
