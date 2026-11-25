@@ -204,13 +204,13 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
             )}
           </div>
 
-          <Link
-            href="/"
-            className="bg-mosque hover:bg-mosque/90 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-md shadow-mosque/20 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2"
+          <button
+            type="button"
+            className="bg-mosque hover:bg-mosque/90 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-md shadow-mosque/20 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2 cursor-pointer"
           >
-            <span className="material-icons text-base">visibility</span>
-            <span>{dict.home.viewAll}</span>
-          </Link>
+            <span className="material-icons text-base">add</span>
+            <span>{dict.admin.properties.addProperty}</span>
+          </button>
         </div>
       </div>
 
@@ -375,6 +375,16 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
                     >
                       <span className="material-icons text-xl">open_in_new</span>
                     </Link>
+
+                    <button
+                      type="button"
+                      disabled={isBusy}
+                      title={dict.admin.properties.edit}
+                      aria-label={dict.admin.properties.edit}
+                      className="p-2 rounded-lg text-gray-400 hover:text-mosque hover:bg-hint-green/30 transition-all cursor-pointer disabled:opacity-50"
+                    >
+                      <span className="material-icons text-xl">edit</span>
+                    </button>
 
                     <button
                       type="button"

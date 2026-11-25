@@ -188,7 +188,7 @@ export const AdminUsersView = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
           <div className="relative group w-full md:w-80">
             <span className="material-icons absolute inset-y-0 left-3 flex items-center text-nordic/40 text-xl pointer-events-none">
               search
@@ -201,13 +201,23 @@ export const AdminUsersView = () => {
               className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-nordic/10 dark:border-white/10 bg-white dark:bg-[#152e2a] text-nordic dark:text-white text-sm shadow-soft focus:ring-2 focus:ring-mosque focus:outline-none transition-all"
             />
           </div>
-          <button
-            onClick={fetchUsers}
-            title="Recargar usuarios"
-            className="p-2.5 border border-nordic/10 dark:border-white/10 rounded-lg bg-white dark:bg-[#152e2a] text-nordic/70 dark:text-gray-300 hover:text-mosque hover:bg-hint-green/20 transition-colors shadow-soft"
-          >
-            <span className="material-icons text-lg">refresh</span>
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={fetchUsers}
+              title="Recargar usuarios"
+              className="p-2.5 border border-nordic/10 dark:border-white/10 rounded-lg bg-white dark:bg-[#152e2a] text-nordic/70 dark:text-gray-300 hover:text-mosque hover:bg-hint-green/20 transition-colors shadow-soft cursor-pointer"
+            >
+              <span className="material-icons text-lg">refresh</span>
+            </button>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center px-4 py-2.5 border border-mosque text-sm font-medium rounded-lg text-mosque dark:text-[#06f9d0] dark:border-[#06f9d0]/60 bg-transparent hover:bg-mosque hover:text-white dark:hover:bg-mosque dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mosque transition-colors whitespace-nowrap cursor-pointer shadow-sm"
+            >
+              <span className="material-icons text-lg mr-2">add</span>
+              <span>{dict.admin.users.addUser}</span>
+            </button>
+          </div>
         </div>
       </div>
 
