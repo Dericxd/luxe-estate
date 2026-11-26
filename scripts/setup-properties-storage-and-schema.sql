@@ -11,7 +11,25 @@ alter table public.properties
   add column if not exists parking integer not null default 1,
   add column if not exists amenities text[] not null default '{}',
   add column if not exists status text not null default 'published',
-  add column if not exists slug text;
+  add column if not exists slug text,
+  add column if not exists latitude double precision,
+  add column if not exists longitude double precision;
+
+do $$
+begin
+  if not exists (
+    select 1 from pg_constraint
+    where conname = 'properties_coordinates_check'
+      and conrelid = 'public.properties'::regclass
+  ) then
+    alter table public.properties
+      add constraint properties_coordinates_check
+      check (
+        (latitude is null or (latitude between -90 and 90))
+        and (longitude is null or (longitude between -180 and 180))
+      );
+  end if;
+end $$;
 
 do $$
 begin

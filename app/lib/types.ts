@@ -21,6 +21,8 @@ export interface Property {
   parking?: number | null;
   amenities?: string[] | null;
   status?: PropertyStatus | null;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
 export interface PaginatedProperties {

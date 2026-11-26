@@ -195,6 +195,10 @@
         "address": "Indirizzo",
         "addressPlaceholder": "Via, Città, CAP",
         "mapPreview": "Anteprima",
+        "latitude": "Latitudine",
+        "longitude": "Longitudine",
+        "latitudePlaceholder": "es. 41.9028",
+        "longitudePlaceholder": "es. 12.4964",
         "area": "Superficie (m²)",
         "yearBuilt": "Anno di Costruzione",
         "bedrooms": "Camere da letto",
@@ -237,7 +241,8 @@
         "createdSuccess": "Immobile creato con successo",
         "updatedSuccess": "Immobile aggiornato con successo",
         "draftSaved": "Bozza salvata con successo",
-        "validationError": "Compila i campi obbligatori (titolo, prezzo e indirizzo)."
+        "validationError": "Compila i campi obbligatori (titolo, prezzo e indirizzo).",
+        "coordinatesError": "Inserisci latitudine (da -90 a 90) e longitudine (da -180 a 180) valide, oppure lascia entrambe vuote."
       }
     },
     "users": {

@@ -195,6 +195,10 @@
         "address": "Adresse",
         "addressPlaceholder": "Adresse, Ville, Code Postal",
         "mapPreview": "Aperçu",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "latitudePlaceholder": "ex. 48.8566",
+        "longitudePlaceholder": "ex. 2.3522",
         "area": "Surface (m²)",
         "yearBuilt": "Année de Construction",
         "bedrooms": "Chambres",
@@ -237,7 +241,8 @@
         "createdSuccess": "Propriété créée avec succès",
         "updatedSuccess": "Propriété mise à jour avec succès",
         "draftSaved": "Brouillon enregistré avec succès",
-        "validationError": "Veuillez remplir les champs obligatoires (titre, prix et adresse)."
+        "validationError": "Veuillez remplir les champs obligatoires (titre, prix et adresse).",
+        "coordinatesError": "Saisissez une latitude (-90 à 90) et une longitude (-180 à 180) valides, ou laissez les deux vides."
       }
     },
     "users": {

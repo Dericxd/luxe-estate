@@ -82,7 +82,11 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
               <div className="bg-white dark:bg-white/5 p-2 rounded-xl shadow-sm border border-mosque/5 dark:border-white/10">
                 <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 dark:bg-white/5 z-0">
-                  <PropertyMapWrapper location={property.location} />
+                  <PropertyMapWrapper
+                    location={property.location}
+                    latitude={property.latitude}
+                    longitude={property.longitude}
+                  />
                 </div>
               </div>
             </div>

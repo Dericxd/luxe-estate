@@ -195,6 +195,10 @@
         "address": "Dirección",
         "addressPlaceholder": "Calle, Ciudad, Código Postal",
         "mapPreview": "Vista previa",
+        "latitude": "Latitud",
+        "longitude": "Longitud",
+        "latitudePlaceholder": "Ej. 10.4806",
+        "longitudePlaceholder": "Ej. -66.9036",
         "area": "Área (m²)",
         "yearBuilt": "Año de Construcción",
         "bedrooms": "Habitaciones",
@@ -237,7 +241,8 @@
         "createdSuccess": "Propiedad creada con éxito",
         "updatedSuccess": "Propiedad actualizada con éxito",
         "draftSaved": "Borrador guardado con éxito",
-        "validationError": "Por favor completa los campos obligatorios (título, precio y dirección)."
+        "validationError": "Por favor completa los campos obligatorios (título, precio y dirección).",
+        "coordinatesError": "Ingresa latitud (-90 a 90) y longitud (-180 a 180) válidas, o deja ambas vacías."
       }
     },
     "users": {

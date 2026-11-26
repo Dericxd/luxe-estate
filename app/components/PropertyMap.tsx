@@ -19,9 +19,11 @@ const icon = L.icon({
 
 interface PropertyMapProps {
   location: string;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
-export default function PropertyMap({ location }: PropertyMapProps) {
+export default function PropertyMap({ location, latitude, longitude }: PropertyMapProps) {
   const [mounted, setMounted] = useState(false);
   
   useEffect(() => {
@@ -34,10 +36,18 @@ export default function PropertyMap({ location }: PropertyMapProps) {
 
   // We don't have exact lat/lng in the db, so we mock a location for demonstration
   // In a real app, geocoding would be used to get coordinates from the location string
-  const defaultPosition: [number, number] = [37.4419, -122.1430]; // Palo Alto
+  const hasCoords =
+    typeof latitude === "number" &&
+    typeof longitude === "number" &&
+    Number.isFinite(latitude) &&
+    Number.isFinite(longitude);
+  const defaultPosition: [number, number] = hasCoords
+    ? [latitude as number, longitude as number]
+    : [37.4419, -122.1430]; // Palo Alto (fallback)
 
   return (
     <MapContainer 
+      key={`${defaultPosition[0]},${defaultPosition[1]}`}
       center={defaultPosition} 
       zoom={13} 
       scrollWheelZoom={false}

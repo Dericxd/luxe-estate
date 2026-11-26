@@ -195,6 +195,10 @@
         "address": "Address",
         "addressPlaceholder": "Street Address, City, Zip",
         "mapPreview": "Preview",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "latitudePlaceholder": "e.g. 40.7128",
+        "longitudePlaceholder": "e.g. -74.0060",
         "area": "Area (m²)",
         "yearBuilt": "Year Built",
         "bedrooms": "Bedrooms",
@@ -237,7 +241,8 @@
         "createdSuccess": "Property created successfully",
         "updatedSuccess": "Property updated successfully",
         "draftSaved": "Draft saved successfully",
-        "validationError": "Please fill in the required fields (title, price, and address)."
+        "validationError": "Please fill in the required fields (title, price, and address).",
+        "coordinatesError": "Enter a valid latitude (-90 to 90) and longitude (-180 to 180), or leave both empty."
       }
     },
     "users": {

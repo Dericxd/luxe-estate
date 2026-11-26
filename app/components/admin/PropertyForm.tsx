@@ -123,6 +123,21 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
   const [description, setDescription] = useState(initialProperty?.description ?? "");
   const [location, setLocation] = useState(initialProperty?.location ?? "");
   const [debouncedLocation, setDebouncedLocation] = useState(initialProperty?.location ?? "");
+  const [latitude, setLatitude] = useState<string>(
+    initialProperty?.latitude != null ? String(initialProperty.latitude) : ""
+  );
+  const [longitude, setLongitude] = useState<string>(
+    initialProperty?.longitude != null ? String(initialProperty.longitude) : ""
+  );
+  const previewLat = latitude.trim() === "" ? null : Number(latitude);
+  const previewLng = longitude.trim() === "" ? null : Number(longitude);
+  const validPreviewCoords =
+    previewLat !== null &&
+    previewLng !== null &&
+    Number.isFinite(previewLat) &&
+    Number.isFinite(previewLng) &&
+    Math.abs(previewLat) <= 90 &&
+    Math.abs(previewLng) <= 180;
 
   const [areaNumeric, setAreaNumeric] = useState(parsedArea.numeric);
   const [areaUnit] = useState<"m²" | "sqft">(parsedArea.unit);
@@ -300,6 +315,27 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
       return;
     }
 
+    const latText = latitude.trim();
+    const lngText = longitude.trim();
+    let parsedLat: number | null = null;
+    let parsedLng: number | null = null;
+    if (latText || lngText) {
+      parsedLat = Number(latText);
+      parsedLng = Number(lngText);
+      if (
+        !latText ||
+        !lngText ||
+        !Number.isFinite(parsedLat) ||
+        !Number.isFinite(parsedLng) ||
+        Math.abs(parsedLat) > 90 ||
+        Math.abs(parsedLng) > 180
+      ) {
+        setErrorMessage(t.messages.coordinatesError);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+    }
+
     const listingType: "sale" | "rent" = formStatus === "for-rent" ? "rent" : "sale";
     const resolvedStatus: PropertyStatus = saveAsDraft
       ? "draft"
@@ -335,6 +371,8 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
       tag_color: initialProperty?.tag_color ?? "gray",
       is_featured: isFeatured,
       status: resolvedStatus,
+      latitude: parsedLat,
+      longitude: parsedLng,
     };
 
     setSavingMode(saveAsDraft ? "draft" : "publish");
@@ -865,9 +903,54 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
                   />
                 </div>
 
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-nordic dark:text-gray-200 mb-1.5 font-sf-pro"
+                      htmlFor="latitude"
+                    >
+                      {t.fields.latitude}
+                    </label>
+                    <input
+                      id="latitude"
+                      type="number"
+                      step="any"
+                      min={-90}
+                      max={90}
+                      value={latitude}
+                      onChange={(e) => setLatitude(e.target.value)}
+                      placeholder={t.fields.latitudePlaceholder}
+                      className="w-full px-4 py-2.5 rounded-md border border-gray-200 dark:border-white/15 bg-white dark:bg-[#0f231f] text-nordic dark:text-white placeholder-gray-400 focus:ring-1 focus:ring-mosque focus:border-mosque focus:outline-none transition-all text-sm font-sf-pro"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-sm font-medium text-nordic dark:text-gray-200 mb-1.5 font-sf-pro"
+                      htmlFor="longitude"
+                    >
+                      {t.fields.longitude}
+                    </label>
+                    <input
+                      id="longitude"
+                      type="number"
+                      step="any"
+                      min={-180}
+                      max={180}
+                      value={longitude}
+                      onChange={(e) => setLongitude(e.target.value)}
+                      placeholder={t.fields.longitudePlaceholder}
+                      className="w-full px-4 py-2.5 rounded-md border border-gray-200 dark:border-white/15 bg-white dark:bg-[#0f231f] text-nordic dark:text-white placeholder-gray-400 focus:ring-1 focus:ring-mosque focus:border-mosque focus:outline-none transition-all text-sm font-sf-pro"
+                    />
+                  </div>
+                </div>
+
                 <div className="relative h-48 w-full rounded-lg overflow-hidden bg-gray-100 dark:bg-[#0f231f] border border-gray-200 dark:border-white/15 group z-0">
-                  {debouncedLocation.trim().length > 2 ? (
-                    <PropertyMapWrapper location={debouncedLocation} />
+                  {validPreviewCoords || debouncedLocation.trim().length > 2 ? (
+                    <PropertyMapWrapper
+                      location={debouncedLocation}
+                      latitude={validPreviewCoords ? previewLat : null}
+                      longitude={validPreviewCoords ? previewLng : null}
+                    />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-clear-day to-hint-green/30 dark:from-[#0f231f] dark:to-[#152e2a]">
                       <span className="material-icons text-5xl text-mosque/20">public</span>

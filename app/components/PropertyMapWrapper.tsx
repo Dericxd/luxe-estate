@@ -9,8 +9,10 @@ const PropertyMap = dynamic(() => import("./PropertyMap"), {
 
 interface PropertyMapWrapperProps {
   location: string;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
-export const PropertyMapWrapper = ({ location }: PropertyMapWrapperProps) => {
-  return <PropertyMap location={location} />;
+export const PropertyMapWrapper = ({ location, latitude, longitude }: PropertyMapWrapperProps) => {
+  return <PropertyMap location={location} latitude={latitude} longitude={longitude} />;
 };
