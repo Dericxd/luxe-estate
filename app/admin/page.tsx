@@ -18,7 +18,7 @@ export default async function AdminPage() {
     redirect("/");
   }
 
-  const properties = await getAllPropertiesForAdmin();
+  const properties = await getAllPropertiesForAdmin(token as string);
 
   return <AdminDashboardClient initialProperties={properties} />;
 }

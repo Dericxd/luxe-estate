@@ -26,7 +26,7 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
     redirect("/");
   }
 
-  const property = await getRawPropertyByIdForAdmin(id);
+  const property = await getRawPropertyByIdForAdmin(id, token as string);
 
   if (!property) {
     notFound();

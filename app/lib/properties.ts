@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase, createServerSupabase } from './supabase';
 import { PaginatedProperties, Property } from './types';
 import { isSupabasePropertyImageUrl } from './storage';
 
@@ -56,8 +56,10 @@ function extractUnsplashId(url: string): string {
  * Builds a deterministic map of property ID -> unique images array across all properties
  * so no two properties ever display the same primary cover image.
  */
-async function getUniqueImagesByPropertyId(): Promise<Map<string, string[]>> {
-  const { data } = await supabase
+async function getUniqueImagesByPropertyId(
+  client: ReturnType<typeof createServerSupabase> = supabase
+): Promise<Map<string, string[]>> {
+  const { data } = await client
     .from('properties')
     .select('id, images, is_featured, created_at')
     .order('is_featured', { ascending: false })
@@ -273,13 +275,14 @@ export async function getPropertyBySlugOrId(slugOrId: string): Promise<Property 
 /**
  * Fetches all properties for the admin dashboard list.
  */
-export async function getAllPropertiesForAdmin(): Promise<Property[]> {
+export async function getAllPropertiesForAdmin(token: string): Promise<Property[]> {
+  const client = createServerSupabase(token);
   const [{ data, error }, imageMap] = await Promise.all([
-    supabase
+    client
       .from('properties')
       .select('*')
       .order('created_at', { ascending: false }),
-    getUniqueImagesByPropertyId(),
+    getUniqueImagesByPropertyId(client),
   ]);
 
   if (error || !data) {
@@ -294,8 +297,8 @@ export async function getAllPropertiesForAdmin(): Promise<Property[]> {
  * Fetches the exact raw property row by ID for the admin edit form
  * without mutating or padding the images array.
  */
-export async function getRawPropertyByIdForAdmin(id: string): Promise<Property | null> {
-  const { data, error } = await supabase
+export async function getRawPropertyByIdForAdmin(id: string, token: string): Promise<Property | null> {
+  const { data, error } = await createServerSupabase(token)
     .from('properties')
     .select('*')
     .eq('id', id)

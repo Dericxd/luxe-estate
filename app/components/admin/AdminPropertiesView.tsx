@@ -68,12 +68,14 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
     try {
       setBusyId(prop.id);
       const nextFeatured = !prop.is_featured;
-      const { error } = await supabase
+      const { data: updated, error } = await supabase
         .from("properties")
         .update({ is_featured: nextFeatured })
-        .eq("id", prop.id);
+        .eq("id", prop.id)
+        .select("id");
 
       if (error) throw error;
+      if (!updated || updated.length === 0) throw new Error("Sin permisos o la propiedad no existe");
 
       setProperties((prev) =>
         prev.map((item) =>
@@ -97,9 +99,14 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
     if (!window.confirm(`¿Eliminar "${prop.title}"? Esta acción no se puede deshacer.`)) return;
     try {
       setBusyId(prop.id);
-      const { error } = await supabase.from("properties").delete().eq("id", prop.id);
+      const { data: deleted, error } = await supabase
+        .from("properties")
+        .delete()
+        .eq("id", prop.id)
+        .select("id");
 
       if (error) throw error;
+      if (!deleted || deleted.length === 0) throw new Error("Sin permisos o la propiedad no existe");
 
       if (Array.isArray(prop.images) && prop.images.length > 0) {
         await deletePropertyImagesByUrls(prop.images);

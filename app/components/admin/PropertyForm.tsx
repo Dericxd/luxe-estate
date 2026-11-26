@@ -381,11 +381,17 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
         const { error } = await supabase.from("properties").insert(payload);
         if (error) throw error;
       } else if (initialProperty?.id) {
-        const { error } = await supabase
+        const { data: updated, error } = await supabase
           .from("properties")
           .update(payload)
-          .eq("id", initialProperty.id);
+          .eq("id", initialProperty.id)
+          .select("id");
         if (error) throw error;
+        if (!updated || updated.length === 0) {
+          throw new Error(
+            "No se guardaron los cambios: no tienes permisos o la propiedad ya no existe."
+          );
+        }
       }
 
       if (pendingDeleteUrls.length > 0) {
