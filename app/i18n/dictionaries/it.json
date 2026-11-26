@@ -195,6 +195,11 @@
         "address": "Indirizzo",
         "addressPlaceholder": "Via, Città, CAP",
         "mapPreview": "Anteprima",
+        "mapEmptyHint": "Inserisci latitudine e longitudine valide per visualizzare la mappa.",
+        "mapInteractiveHint": "Clicca sulla mappa o trascina il segnaposto per regolare le coordinate.",
+        "locateFromAddress": "Trova da indirizzo",
+        "locatingAddress": "Ricerca...",
+        "clearCoordinates": "Pulisci",
         "latitude": "Latitudine",
         "longitude": "Longitudine",
         "latitudePlaceholder": "es. 41.9028",
@@ -242,7 +247,11 @@
         "updatedSuccess": "Immobile aggiornato con successo",
         "draftSaved": "Bozza salvata con successo",
         "validationError": "Compila i campi obbligatori (titolo, prezzo e indirizzo).",
-        "coordinatesError": "Inserisci latitudine (da -90 a 90) e longitudine (da -180 a 180) valide, oppure lascia entrambe vuote."
+        "coordinatesError": "Inserisci latitudine (da -90 a 90) e longitudine (da -180 a 180) valide, oppure lascia entrambe vuote.",
+        "coordinatesIncomplete": "Inserisci sia la latitudine che la longitudine per mostrare la mappa.",
+        "geocodeEmpty": "Inserisci prima un indirizzo per cercarne le coordinate.",
+        "geocodeNotFound": "Nessuna coordinata trovata per questo indirizzo.",
+        "geocodeError": "Impossibile contattare il servizio di geolocalizzazione."
       }
     },
     "users": {

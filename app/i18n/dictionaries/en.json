@@ -195,6 +195,11 @@
         "address": "Address",
         "addressPlaceholder": "Street Address, City, Zip",
         "mapPreview": "Preview",
+        "mapEmptyHint": "Enter valid latitude and longitude to display the map.",
+        "mapInteractiveHint": "Click on the map or drag the pin to fine-tune coordinates.",
+        "locateFromAddress": "Locate from address",
+        "locatingAddress": "Locating...",
+        "clearCoordinates": "Clear",
         "latitude": "Latitude",
         "longitude": "Longitude",
         "latitudePlaceholder": "e.g. 40.7128",
@@ -242,7 +247,11 @@
         "updatedSuccess": "Property updated successfully",
         "draftSaved": "Draft saved successfully",
         "validationError": "Please fill in the required fields (title, price, and address).",
-        "coordinatesError": "Enter a valid latitude (-90 to 90) and longitude (-180 to 180), or leave both empty."
+        "coordinatesError": "Enter a valid latitude (-90 to 90) and longitude (-180 to 180), or leave both empty.",
+        "coordinatesIncomplete": "Enter both latitude and longitude to display the map.",
+        "geocodeEmpty": "Enter an address first to look up its coordinates.",
+        "geocodeNotFound": "No coordinates were found for that address.",
+        "geocodeError": "Could not reach the location lookup service."
       }
     },
     "users": {

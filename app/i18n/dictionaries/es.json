@@ -195,6 +195,11 @@
         "address": "Dirección",
         "addressPlaceholder": "Calle, Ciudad, Código Postal",
         "mapPreview": "Vista previa",
+        "mapEmptyHint": "Ingresa latitud y longitud válidas para visualizar el mapa.",
+        "mapInteractiveHint": "Haz clic en el mapa o arrastra el pin para ajustar las coordenadas.",
+        "locateFromAddress": "Ubicar desde dirección",
+        "locatingAddress": "Buscando...",
+        "clearCoordinates": "Limpiar",
         "latitude": "Latitud",
         "longitude": "Longitud",
         "latitudePlaceholder": "Ej. 10.4806",
@@ -242,7 +247,11 @@
         "updatedSuccess": "Propiedad actualizada con éxito",
         "draftSaved": "Borrador guardado con éxito",
         "validationError": "Por favor completa los campos obligatorios (título, precio y dirección).",
-        "coordinatesError": "Ingresa latitud (-90 a 90) y longitud (-180 a 180) válidas, o deja ambas vacías."
+        "coordinatesError": "Ingresa latitud (-90 a 90) y longitud (-180 a 180) válidas, o deja ambas vacías.",
+        "coordinatesIncomplete": "Completa tanto la latitud como la longitud para mostrar el mapa.",
+        "geocodeEmpty": "Escribe una dirección primero para buscar sus coordenadas.",
+        "geocodeNotFound": "No se encontraron coordenadas para esa dirección.",
+        "geocodeError": "No se pudo consultar el servicio de ubicación."
       }
     },
     "users": {

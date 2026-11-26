@@ -195,6 +195,11 @@
         "address": "Adresse",
         "addressPlaceholder": "Adresse, Ville, Code Postal",
         "mapPreview": "Aperçu",
+        "mapEmptyHint": "Saisissez une latitude et une longitude valides pour afficher la carte.",
+        "mapInteractiveHint": "Cliquez sur la carte ou faites glisser le marqueur pour ajuster.",
+        "locateFromAddress": "Localiser via l'adresse",
+        "locatingAddress": "Recherche...",
+        "clearCoordinates": "Effacer",
         "latitude": "Latitude",
         "longitude": "Longitude",
         "latitudePlaceholder": "ex. 48.8566",
@@ -242,7 +247,11 @@
         "updatedSuccess": "Propriété mise à jour avec succès",
         "draftSaved": "Brouillon enregistré avec succès",
         "validationError": "Veuillez remplir les champs obligatoires (titre, prix et adresse).",
-        "coordinatesError": "Saisissez une latitude (-90 à 90) et une longitude (-180 à 180) valides, ou laissez les deux vides."
+        "coordinatesError": "Saisissez une latitude (-90 à 90) et une longitude (-180 à 180) valides, ou laissez les deux vides.",
+        "coordinatesIncomplete": "Saisissez la latitude et la longitude pour afficher la carte.",
+        "geocodeEmpty": "Saisissez d'abord une adresse pour rechercher ses coordonnées.",
+        "geocodeNotFound": "Aucune coordonnée trouvée pour cette adresse.",
+        "geocodeError": "Impossible de contacter le service de géolocalisation."
       }
     },
     "users": {

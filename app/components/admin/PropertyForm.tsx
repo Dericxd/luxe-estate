@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Navbar } from "../Navbar";
@@ -81,6 +81,25 @@ function getInitialFormStatus(prop?: Property): FormStatusValue {
   return prop.listing_type === "rent" ? "for-rent" : "for-sale";
 }
 
+function parseCoordinatePair(raw: string): { lat: string; lng: string } | null {
+  const cleaned = raw.trim().replace(/[()]/g, "");
+  const parts = cleaned.split(/[,\s;]+/).filter(Boolean);
+  if (parts.length !== 2) return null;
+
+  const lat = Number(parts[0]);
+  const lng = Number(parts[1]);
+  if (
+    !Number.isFinite(lat) ||
+    !Number.isFinite(lng) ||
+    Math.abs(lat) > 90 ||
+    Math.abs(lng) > 180
+  ) {
+    return null;
+  }
+
+  return { lat: String(lat), lng: String(lng) };
+}
+
 export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
   const router = useRouter();
   const { dict } = useLanguage();
@@ -122,15 +141,20 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
 
   const [description, setDescription] = useState(initialProperty?.description ?? "");
   const [location, setLocation] = useState(initialProperty?.location ?? "");
-  const [debouncedLocation, setDebouncedLocation] = useState(initialProperty?.location ?? "");
   const [latitude, setLatitude] = useState<string>(
     initialProperty?.latitude != null ? String(initialProperty.latitude) : ""
   );
   const [longitude, setLongitude] = useState<string>(
     initialProperty?.longitude != null ? String(initialProperty.longitude) : ""
   );
-  const previewLat = latitude.trim() === "" ? null : Number(latitude);
-  const previewLng = longitude.trim() === "" ? null : Number(longitude);
+  const [locatingAddress, setLocatingAddress] = useState(false);
+  const [locationHintError, setLocationHintError] = useState<string | null>(null);
+
+  const trimmedLat = latitude.trim();
+  const trimmedLng = longitude.trim();
+  const hasAnyCoord = trimmedLat.length > 0 || trimmedLng.length > 0;
+  const previewLat = trimmedLat === "" ? null : Number(trimmedLat);
+  const previewLng = trimmedLng === "" ? null : Number(trimmedLng);
   const validPreviewCoords =
     previewLat !== null &&
     previewLng !== null &&
@@ -138,6 +162,17 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
     Number.isFinite(previewLng) &&
     Math.abs(previewLat) <= 90 &&
     Math.abs(previewLng) <= 180;
+
+  const inlineCoordinateError = useMemo(() => {
+    if (!hasAnyCoord) return null;
+    if (trimmedLat === "" || trimmedLng === "") {
+      return t.messages.coordinatesIncomplete;
+    }
+    if (!validPreviewCoords) {
+      return t.messages.coordinatesError;
+    }
+    return null;
+  }, [hasAnyCoord, trimmedLat, trimmedLng, validPreviewCoords, t.messages]);
 
   const [areaNumeric, setAreaNumeric] = useState(parsedArea.numeric);
   const [areaUnit] = useState<"m²" | "sqft">(parsedArea.unit);
@@ -171,17 +206,77 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
     return base || "new-property";
   }, [initialProperty?.id, title]);
 
-  // Debounce location for live map preview
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedLocation(location);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [location]);
-
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
+  };
+
+  const handleCoordinatesPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pastedText = e.clipboardData.getData("text");
+    const parsed = parseCoordinatePair(pastedText);
+    if (!parsed) return;
+    e.preventDefault();
+    setLatitude(parsed.lat);
+    setLongitude(parsed.lng);
+    setLocationHintError(null);
+  };
+
+  const handleMapCoordinatesChange = (lat: number, lng: number) => {
+    setLatitude(String(lat));
+    setLongitude(String(lng));
+    setLocationHintError(null);
+  };
+
+  const handleClearCoordinates = () => {
+    setLatitude("");
+    setLongitude("");
+    setLocationHintError(null);
+  };
+
+  const handleLocateFromAddress = async () => {
+    const query = location.trim();
+    if (!query) {
+      setLocationHintError(t.messages.geocodeEmpty);
+      return;
+    }
+
+    setLocationHintError(null);
+    setLocatingAddress(true);
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Geocoding failed with status ${response.status}`);
+      }
+
+      const results = (await response.json()) as Array<{ lat?: string; lon?: string }>;
+      const first = results[0];
+      if (!first?.lat || !first?.lon) {
+        setLocationHintError(t.messages.geocodeNotFound);
+        return;
+      }
+
+      const latNum = Number(first.lat);
+      const lngNum = Number(first.lon);
+      if (!Number.isFinite(latNum) || !Number.isFinite(lngNum)) {
+        setLocationHintError(t.messages.geocodeNotFound);
+        return;
+      }
+
+      setLatitude(String(Math.round(latNum * 1_000_000) / 1_000_000));
+      setLongitude(String(Math.round(lngNum * 1_000_000) / 1_000_000));
+    } catch {
+      setLocationHintError(t.messages.geocodeError);
+    } finally {
+      setLocatingAddress(false);
+    }
   };
 
   const handleToggleAmenity = (amenity: string) => {
@@ -892,18 +987,34 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
 
               <div className="p-6 space-y-4">
                 <div>
-                  <label
-                    className="block text-sm font-medium text-nordic dark:text-gray-200 mb-1.5 font-sf-pro"
-                    htmlFor="location"
-                  >
-                    {t.fields.address} <span className="text-red-500">*</span>
-                  </label>
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <label
+                      className="block text-sm font-medium text-nordic dark:text-gray-200 font-sf-pro"
+                      htmlFor="location"
+                    >
+                      {t.fields.address} <span className="text-red-500">*</span>
+                    </label>
+                    <button
+                      type="button"
+                      disabled={locatingAddress || location.trim().length === 0}
+                      onClick={() => void handleLocateFromAddress()}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-mosque hover:text-nordic dark:text-hint-green dark:hover:text-white disabled:opacity-40 transition-colors cursor-pointer disabled:cursor-not-allowed font-sf-pro"
+                    >
+                      <span className="material-icons text-sm">
+                        {locatingAddress ? "hourglass_top" : "my_location"}
+                      </span>
+                      {locatingAddress ? t.fields.locatingAddress : t.fields.locateFromAddress}
+                    </button>
+                  </div>
                   <input
                     id="location"
                     type="text"
                     required
                     value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    onChange={(e) => {
+                      setLocation(e.target.value);
+                      if (locationHintError) setLocationHintError(null);
+                    }}
                     placeholder={t.fields.addressPlaceholder}
                     className="w-full px-4 py-2.5 rounded-md border border-gray-200 dark:border-white/15 bg-white dark:bg-[#0f231f] text-nordic dark:text-white placeholder-gray-400 focus:ring-1 focus:ring-mosque focus:border-mosque focus:outline-none transition-all text-sm font-sf-pro"
                   />
@@ -924,18 +1035,33 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
                       min={-90}
                       max={90}
                       value={latitude}
-                      onChange={(e) => setLatitude(e.target.value)}
+                      onChange={(e) => {
+                        setLatitude(e.target.value);
+                        if (locationHintError) setLocationHintError(null);
+                      }}
+                      onPaste={handleCoordinatesPaste}
                       placeholder={t.fields.latitudePlaceholder}
                       className="w-full px-4 py-2.5 rounded-md border border-gray-200 dark:border-white/15 bg-white dark:bg-[#0f231f] text-nordic dark:text-white placeholder-gray-400 focus:ring-1 focus:ring-mosque focus:border-mosque focus:outline-none transition-all text-sm font-sf-pro"
                     />
                   </div>
                   <div>
-                    <label
-                      className="block text-sm font-medium text-nordic dark:text-gray-200 mb-1.5 font-sf-pro"
-                      htmlFor="longitude"
-                    >
-                      {t.fields.longitude}
-                    </label>
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <label
+                        className="block text-sm font-medium text-nordic dark:text-gray-200 font-sf-pro"
+                        htmlFor="longitude"
+                      >
+                        {t.fields.longitude}
+                      </label>
+                      {hasAnyCoord && (
+                        <button
+                          type="button"
+                          onClick={handleClearCoordinates}
+                          className="text-[11px] font-medium text-gray-400 hover:text-red-500 transition-colors cursor-pointer font-sf-pro"
+                        >
+                          {t.fields.clearCoordinates}
+                        </button>
+                      )}
+                    </div>
                     <input
                       id="longitude"
                       type="number"
@@ -943,23 +1069,44 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
                       min={-180}
                       max={180}
                       value={longitude}
-                      onChange={(e) => setLongitude(e.target.value)}
+                      onChange={(e) => {
+                        setLongitude(e.target.value);
+                        if (locationHintError) setLocationHintError(null);
+                      }}
+                      onPaste={handleCoordinatesPaste}
                       placeholder={t.fields.longitudePlaceholder}
                       className="w-full px-4 py-2.5 rounded-md border border-gray-200 dark:border-white/15 bg-white dark:bg-[#0f231f] text-nordic dark:text-white placeholder-gray-400 focus:ring-1 focus:ring-mosque focus:border-mosque focus:outline-none transition-all text-sm font-sf-pro"
                     />
                   </div>
                 </div>
 
-                <div className="relative h-48 w-full rounded-lg overflow-hidden bg-gray-100 dark:bg-[#0f231f] border border-gray-200 dark:border-white/15 group z-0">
-                  {validPreviewCoords || debouncedLocation.trim().length > 2 ? (
+                {(locationHintError || inlineCoordinateError) && (
+                  <p
+                    role="status"
+                    className="text-xs text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 rounded-md px-3 py-2 font-sf-pro flex items-start gap-2"
+                  >
+                    <span className="material-icons text-sm mt-0.5 shrink-0">info</span>
+                    <span>{locationHintError || inlineCoordinateError}</span>
+                  </p>
+                )}
+
+                <div className="relative isolate h-64 w-full rounded-lg overflow-hidden bg-gray-100 dark:bg-[#0f231f] border border-gray-200 dark:border-white/15 group">
+                  {validPreviewCoords ? (
                     <PropertyMapWrapper
-                      location={debouncedLocation}
-                      latitude={validPreviewCoords ? previewLat : null}
-                      longitude={validPreviewCoords ? previewLng : null}
+                      location={location}
+                      latitude={previewLat}
+                      longitude={previewLng}
+                      interactive
+                      onCoordinatesChange={handleMapCoordinatesChange}
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-clear-day to-hint-green/30 dark:from-[#0f231f] dark:to-[#152e2a]">
-                      <span className="material-icons text-5xl text-mosque/20">public</span>
+                    <div className="w-full h-full flex flex-col items-center justify-center gap-2 px-6 text-center bg-gradient-to-br from-clear-day to-hint-green/30 dark:from-[#0f231f] dark:to-[#152e2a]">
+                      <span className="material-icons text-4xl text-mosque/35 dark:text-hint-green/40">
+                        public
+                      </span>
+                      <p className="text-xs text-nordic/70 dark:text-gray-300 font-sf-pro max-w-[230px]">
+                        {t.fields.mapEmptyHint}
+                      </p>
                     </div>
                   )}
                   <div className="absolute bottom-3 left-3 pointer-events-none z-[400]">
@@ -969,6 +1116,13 @@ export const PropertyForm = ({ mode, initialProperty }: PropertyFormProps) => {
                     </span>
                   </div>
                 </div>
+
+                {validPreviewCoords && (
+                  <p className="text-[11px] text-gray-500 dark:text-gray-400 font-sf-pro flex items-center gap-1.5">
+                    <span className="material-icons text-xs text-mosque">touch_app</span>
+                    <span>{t.fields.mapInteractiveHint}</span>
+                  </p>
+                )}
               </div>
             </div>
 
