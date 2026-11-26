@@ -196,7 +196,9 @@ export async function getMarketProperties(
     .neq('status', 'draft');
 
   if (filters?.search) {
-    query = query.ilike('location', `%${filters.search}%`);
+    // Case-insensitive partial/full title match; escape LIKE wildcards
+    const term = filters.search.trim().replace(/[%_\\]/g, '\\$&');
+    query = query.ilike('title', `%${term}%`);
   }
   
   if (filters?.minPrice) {
