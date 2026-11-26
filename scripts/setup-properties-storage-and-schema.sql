@@ -51,7 +51,7 @@ create unique index if not exists properties_slug_unique_idx
   where slug is not null;
 
 -- 2. Permisos y política RLS faltante para INSERT de propiedades por admins
-grant select, insert, update, delete on table public.properties to authenticated;
+grant select, insert, update on table public.properties to authenticated;
 
 drop policy if exists "properties_insert_admin" on public.properties;
 create policy "properties_insert_admin"

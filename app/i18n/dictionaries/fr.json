@@ -149,13 +149,18 @@
         "pending": "À Louer",
         "featured": "En Vedette",
         "draft": "Brouillon",
-        "sold": "Vendue"
+        "sold": "Vendue",
+        "inactive": "Inactive"
       },
       "beds": "Ch.",
       "baths": "Sdb.",
       "viewDetail": "Voir détail",
       "edit": "Modifier la propriété",
-      "delete": "Supprimer"
+      "deactivate": "Désactiver",
+      "activate": "Activer",
+      "confirmDeactivate": "Désactiver '{title}' ? Elle sera masquée du site public mais conservée dans le panneau admin.",
+      "toastDeactivated": "désactivée",
+      "toastActivated": "activée"
     },
     "propertyForm": {
       "breadcrumbProperties": "Propriétés",

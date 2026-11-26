@@ -149,13 +149,18 @@
         "pending": "For Rent",
         "featured": "Featured",
         "draft": "Draft",
-        "sold": "Sold"
+        "sold": "Sold",
+        "inactive": "Inactive"
       },
       "beds": "Beds",
       "baths": "Baths",
       "viewDetail": "View detail",
       "edit": "Edit property",
-      "delete": "Delete"
+      "deactivate": "Deactivate",
+      "activate": "Activate",
+      "confirmDeactivate": "Deactivate '{title}'? It will be hidden from the public site but kept in the admin panel.",
+      "toastDeactivated": "Deactivated",
+      "toastActivated": "Activated"
     },
     "propertyForm": {
       "breadcrumbProperties": "Properties",

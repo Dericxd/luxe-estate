@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Property } from "../../lib/types";
 import { supabase } from "../../lib/supabase";
-import { deletePropertyImagesByUrls } from "../../lib/storage";
 import { useLanguage } from "../../i18n/LanguageContext";
 
 interface AdminPropertiesViewProps {
@@ -17,7 +16,7 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
   const { dict } = useLanguage();
   const [properties, setProperties] = useState<Property[]>(initialProperties);
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"all" | "sale" | "rent" | "featured">("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | "sale" | "rent" | "featured" | "inactive">("all");
   const [filterOpen, setFilterOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -30,9 +29,11 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
 
   const stats = useMemo(() => {
     const total = properties.length;
-    const activeSale = properties.filter((p) => p.listing_type === "sale").length;
+    const activeSale = properties.filter(
+      (p) => p.listing_type === "sale" && p.is_active !== false
+    ).length;
     const rentOrFeatured = properties.filter(
-      (p) => p.listing_type === "rent" || p.is_featured
+      (p) => p.is_active !== false && (p.listing_type === "rent" || p.is_featured)
     ).length;
     return { total, activeSale, rentOrFeatured };
   }, [properties]);
@@ -50,7 +51,8 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
         statusFilter === "all" ||
         (statusFilter === "sale" && prop.listing_type === "sale") ||
         (statusFilter === "rent" && prop.listing_type === "rent") ||
-        (statusFilter === "featured" && prop.is_featured);
+        (statusFilter === "featured" && prop.is_featured) ||
+        (statusFilter === "inactive" && prop.is_active === false);
 
       return matchesSearch && matchesFilter;
     });
@@ -95,28 +97,37 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
     }
   };
 
-  const handleDeleteProperty = async (prop: Property) => {
-    if (!window.confirm(`¿Eliminar "${prop.title}"? Esta acción no se puede deshacer.`)) return;
+  const handleToggleActive = async (prop: Property) => {
+    const nextActive = prop.is_active === false;
+    if (
+      !nextActive &&
+      !window.confirm(dict.admin.properties.confirmDeactivate.replace("{title}", prop.title))
+    )
+      return;
     try {
       setBusyId(prop.id);
-      const { data: deleted, error } = await supabase
+      const { data: updated, error } = await supabase
         .from("properties")
-        .delete()
+        .update({ is_active: nextActive })
         .eq("id", prop.id)
         .select("id");
 
       if (error) throw error;
-      if (!deleted || deleted.length === 0) throw new Error("Sin permisos o la propiedad no existe");
+      if (!updated || updated.length === 0) throw new Error("Sin permisos o la propiedad no existe");
 
-      if (Array.isArray(prop.images) && prop.images.length > 0) {
-        await deletePropertyImagesByUrls(prop.images);
-      }
-
-      setProperties((prev) => prev.filter((item) => item.id !== prop.id));
-      showToast(`Propiedad "${prop.title}" eliminada`);
+      setProperties((prev) =>
+        prev.map((item) => (item.id === prop.id ? { ...item, is_active: nextActive } : item))
+      );
+      showToast(
+        `"${prop.title}" ${
+          nextActive
+            ? dict.admin.properties.toastActivated
+            : dict.admin.properties.toastDeactivated
+        }`
+      );
     } catch (err) {
-      console.error("[AdminPropertiesView] Error deleting property:", err);
-      showToast("Error al eliminar la propiedad");
+      console.error("[AdminPropertiesView] Error toggling active:", err);
+      showToast("No se pudo actualizar la propiedad");
     } finally {
       setBusyId(null);
     }
@@ -191,6 +202,7 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
                     { key: "sale", label: dict.admin.properties.status.active },
                     { key: "rent", label: dict.admin.properties.status.pending },
                     { key: "featured", label: dict.admin.properties.status.featured },
+                    { key: "inactive", label: dict.admin.properties.status.inactive },
                   ] as const
                 ).map((option) => (
                   <button
@@ -291,7 +303,7 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
               return (
                 <div
                   key={prop.id}
-                  className="group grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-5 hover:bg-background-light/60 dark:hover:bg-white/[0.03] transition-colors items-center"
+                  className={`group grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-5 hover:bg-background-light/60 dark:hover:bg-white/[0.03] transition-colors items-center ${prop.is_active === false ? "opacity-60" : ""}`}
                 >
                   <div className="col-span-12 md:col-span-6 flex gap-4 items-center">
                     <Link
@@ -349,7 +361,12 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
                   </div>
 
                   <div className="col-span-6 md:col-span-2">
-                    {prop.status === "draft" ? (
+                    {prop.is_active === false ? (
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/15">
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400 mr-1.5" />
+                        {dict.admin.properties.status.inactive}
+                      </span>
+                    ) : prop.status === "draft" ? (
                       <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/15">
                         <span className="w-1.5 h-1.5 rounded-full bg-gray-400 mr-1.5" />
                         {dict.admin.properties.status.draft}
@@ -410,12 +427,17 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
                     <button
                       type="button"
                       disabled={isBusy}
-                      onClick={() => handleDeleteProperty(prop)}
-                      title={dict.admin.properties.delete}
-                      aria-label={dict.admin.properties.delete}
-                      className="p-2 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all cursor-pointer disabled:opacity-50"
+                      onClick={() => handleToggleActive(prop)}
+                      title={prop.is_active === false ? dict.admin.properties.activate : dict.admin.properties.deactivate}
+                      aria-label={prop.is_active === false ? dict.admin.properties.activate : dict.admin.properties.deactivate}
+                      className={`p-2 rounded-lg transition-all cursor-pointer disabled:opacity-50 ${prop.is_active === false
+                          ? "text-gray-400 hover:text-mosque hover:bg-hint-green/30"
+                          : "text-mosque hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                        }`}
                     >
-                      <span className="material-icons text-xl">delete_outline</span>
+                      <span className="material-icons text-xl">
+                        {prop.is_active === false ? "visibility_off" : "visibility"}
+                      </span>
                     </button>
                   </div>
                 </div>

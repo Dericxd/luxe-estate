@@ -15,6 +15,7 @@ export interface Property {
   tag: string;
   tag_color: string | null;
   is_featured: boolean;
+  is_active?: boolean;
   created_at: string;
   description?: string | null;
   year_built?: number | null;

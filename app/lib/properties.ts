@@ -150,6 +150,7 @@ export async function getFeaturedProperties(): Promise<Property[]> {
       .from('properties')
       .select('*')
       .eq('is_featured', true)
+      .eq('is_active', true)
       .order('created_at', { ascending: false })
       .limit(2),
     getUniqueImagesByPropertyId(),
@@ -190,7 +191,9 @@ export async function getMarketProperties(
   let query = supabase
     .from('properties')
     .select('*', { count: 'exact' })
-    .eq('is_featured', false);
+    .eq('is_featured', false)
+    .eq('is_active', true)
+    .neq('status', 'draft');
 
   if (filters?.search) {
     query = query.ilike('location', `%${filters.search}%`);
@@ -251,7 +254,7 @@ export async function getMarketProperties(
 export async function getPropertyBySlugOrId(slugOrId: string): Promise<Property | null> {
   const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slugOrId);
   
-  let query = supabase.from('properties').select('*');
+  let query = supabase.from('properties').select('*').eq('is_active', true);
   
   if (isUuid) {
     query = query.eq('id', slugOrId);

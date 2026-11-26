@@ -149,13 +149,18 @@
         "pending": "In Affitto",
         "featured": "In Evidenza",
         "draft": "Bozza",
-        "sold": "Venduto"
+        "sold": "Venduto",
+        "inactive": "Inattivo"
       },
       "beds": "Camere",
       "baths": "Bagni",
       "viewDetail": "Vedi dettaglio",
       "edit": "Modifica immobile",
-      "delete": "Elimina"
+      "deactivate": "Disattiva",
+      "activate": "Attiva",
+      "confirmDeactivate": "Disattivare '{title}'? Sarà nascosto dal sito pubblico ma resterà nel pannello admin.",
+      "toastDeactivated": "disattivato",
+      "toastActivated": "attivato"
     },
     "propertyForm": {
       "breadcrumbProperties": "Immobili",

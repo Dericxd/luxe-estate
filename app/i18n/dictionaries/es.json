@@ -149,13 +149,18 @@
         "pending": "En Alquiler",
         "featured": "Destacada",
         "draft": "Borrador",
-        "sold": "Vendida"
+        "sold": "Vendida",
+        "inactive": "Inactiva"
       },
       "beds": "Hab",
       "baths": "Baños",
       "viewDetail": "Ver detalle",
       "edit": "Editar propiedad",
-      "delete": "Eliminar"
+      "deactivate": "Desactivar",
+      "activate": "Activar",
+      "confirmDeactivate": "¿Desactivar '{title}'? Se ocultará del sitio público pero seguirá en el panel admin.",
+      "toastDeactivated": "desactivada",
+      "toastActivated": "activada"
     },
     "propertyForm": {
       "breadcrumbProperties": "Propiedades",
