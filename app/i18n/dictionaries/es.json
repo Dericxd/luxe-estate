@@ -147,13 +147,98 @@
       "status": {
         "active": "Activa",
         "pending": "En Alquiler",
-        "featured": "Destacada"
+        "featured": "Destacada",
+        "draft": "Borrador",
+        "sold": "Vendida"
       },
       "beds": "Hab",
       "baths": "Baños",
       "viewDetail": "Ver detalle",
       "edit": "Editar propiedad",
       "delete": "Eliminar"
+    },
+    "propertyForm": {
+      "breadcrumbProperties": "Propiedades",
+      "breadcrumbAddNew": "Nueva Propiedad",
+      "breadcrumbEdit": "Editar Propiedad",
+      "createTitle": "Agregar Nueva Propiedad",
+      "createSubtitle": "Completa los detalles a continuación para crear un nuevo anuncio. Los campos marcados con * son obligatorios.",
+      "editTitle": "Editar Propiedad",
+      "editSubtitle": "Actualiza los detalles, imágenes y características del inmueble. Los campos marcados con * son obligatorios.",
+      "saveDraft": "Guardar Borrador",
+      "saveProperty": "Guardar Propiedad",
+      "updateProperty": "Actualizar Propiedad",
+      "saving": "Guardando...",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "sections": {
+        "basicInfo": "Información Básica",
+        "description": "Descripción",
+        "gallery": "Galería",
+        "location": "Ubicación",
+        "details": "Detalles"
+      },
+      "fields": {
+        "title": "Título de la Propiedad",
+        "titlePlaceholder": "ej. Ático Moderno con Vista al Mar",
+        "price": "Precio",
+        "status": "Estado",
+        "propertyType": "Tipo de Propiedad",
+        "priceLabel": "Etiqueta de Precio",
+        "priceLabelPlaceholder": "ej. $2.5M o $2,755/mes",
+        "slug": "Slug de URL",
+        "slugPlaceholder": "atico-moderno-vista-mar",
+        "featured": "Marcar como Propiedad Destacada",
+        "featuredHint": "Aparecerá en la sección de Colecciones Destacadas.",
+        "descriptionPlaceholder": "Describe las características de la propiedad, el vecindario y los puntos fuertes...",
+        "characters": "caracteres",
+        "address": "Dirección",
+        "addressPlaceholder": "Calle, Ciudad, Código Postal",
+        "mapPreview": "Vista previa",
+        "area": "Área (m²)",
+        "yearBuilt": "Año de Construcción",
+        "bedrooms": "Habitaciones",
+        "bathrooms": "Baños",
+        "parking": "Estacionamiento",
+        "amenities": "Comodidades"
+      },
+      "statuses": {
+        "forSale": "En Venta",
+        "forRent": "En Alquiler",
+        "sold": "Vendida"
+      },
+      "types": {
+        "Apartment": "Apartamento",
+        "House": "Casa",
+        "Villa": "Villa",
+        "Condo": "Condominio",
+        "Penthouse": "Ático",
+        "Commercial": "Comercial"
+      },
+      "amenities": {
+        "Swimming Pool": "Piscina",
+        "Garden": "Jardín",
+        "Air Conditioning": "Aire Acondicionado",
+        "Smart Home": "Hogar Inteligente",
+        "Gym": "Gimnasio",
+        "EV Charging": "Carga EV"
+      },
+      "gallery": {
+        "dropzoneTitle": "Haz clic o arrastra imágenes aquí",
+        "dropzoneHint": "Tamaño máximo 5MB por imagen",
+        "uploading": "Subiendo imágenes a Supabase...",
+        "mainBadge": "Principal",
+        "addMore": "Añadir Más",
+        "setMain": "Hacer principal",
+        "replace": "Reemplazar imagen",
+        "remove": "Eliminar imagen"
+      },
+      "messages": {
+        "createdSuccess": "Propiedad creada con éxito",
+        "updatedSuccess": "Propiedad actualizada con éxito",
+        "draftSaved": "Borrador guardado con éxito",
+        "validationError": "Por favor completa los campos obligatorios (título, precio y dirección)."
+      }
     },
     "users": {
       "title": "Directorio de Usuarios",

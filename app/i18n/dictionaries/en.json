@@ -147,13 +147,98 @@
       "status": {
         "active": "Active",
         "pending": "For Rent",
-        "featured": "Featured"
+        "featured": "Featured",
+        "draft": "Draft",
+        "sold": "Sold"
       },
       "beds": "Beds",
       "baths": "Baths",
       "viewDetail": "View detail",
       "edit": "Edit property",
       "delete": "Delete"
+    },
+    "propertyForm": {
+      "breadcrumbProperties": "Properties",
+      "breadcrumbAddNew": "Add New",
+      "breadcrumbEdit": "Edit Property",
+      "createTitle": "Add New Property",
+      "createSubtitle": "Fill in the details below to create a new listing. Fields marked with * are mandatory.",
+      "editTitle": "Edit Property",
+      "editSubtitle": "Update the property details, gallery images, and features below. Fields marked with * are mandatory.",
+      "saveDraft": "Save Draft",
+      "saveProperty": "Save Property",
+      "updateProperty": "Update Property",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "save": "Save",
+      "sections": {
+        "basicInfo": "Basic Information",
+        "description": "Description",
+        "gallery": "Gallery",
+        "location": "Location",
+        "details": "Details"
+      },
+      "fields": {
+        "title": "Property Title",
+        "titlePlaceholder": "e.g. Modern Penthouse with Ocean View",
+        "price": "Price",
+        "status": "Status",
+        "propertyType": "Property Type",
+        "priceLabel": "Price Label",
+        "priceLabelPlaceholder": "e.g. $2.5M or $2,755/mo",
+        "slug": "URL Slug",
+        "slugPlaceholder": "modern-penthouse-ocean-view",
+        "featured": "Featured Property",
+        "featuredHint": "Will be highlighted in the Featured Collections section.",
+        "descriptionPlaceholder": "Describe the property features, neighborhood, and unique selling points...",
+        "characters": "characters",
+        "address": "Address",
+        "addressPlaceholder": "Street Address, City, Zip",
+        "mapPreview": "Preview",
+        "area": "Area (m²)",
+        "yearBuilt": "Year Built",
+        "bedrooms": "Bedrooms",
+        "bathrooms": "Bathrooms",
+        "parking": "Parking",
+        "amenities": "Amenities"
+      },
+      "statuses": {
+        "forSale": "For Sale",
+        "forRent": "For Rent",
+        "sold": "Sold"
+      },
+      "types": {
+        "Apartment": "Apartment",
+        "House": "House",
+        "Villa": "Villa",
+        "Condo": "Condo",
+        "Penthouse": "Penthouse",
+        "Commercial": "Commercial"
+      },
+      "amenities": {
+        "Swimming Pool": "Swimming Pool",
+        "Garden": "Garden",
+        "Air Conditioning": "Air Conditioning",
+        "Smart Home": "Smart Home",
+        "Gym": "Gym",
+        "EV Charging": "EV Charging"
+      },
+      "gallery": {
+        "dropzoneTitle": "Click or drag images here",
+        "dropzoneHint": "Max file size 5MB per image",
+        "uploading": "Uploading images to Supabase...",
+        "mainBadge": "Main",
+        "addMore": "Add More",
+        "setMain": "Set as main",
+        "replace": "Replace image",
+        "remove": "Delete image"
+      },
+      "messages": {
+        "createdSuccess": "Property created successfully",
+        "updatedSuccess": "Property updated successfully",
+        "draftSaved": "Draft saved successfully",
+        "validationError": "Please fill in the required fields (title, price, and address)."
+      }
     },
     "users": {
       "title": "User Directory",

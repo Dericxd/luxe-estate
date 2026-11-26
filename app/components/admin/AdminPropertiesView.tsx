@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Property } from "../../lib/types";
 import { supabase } from "../../lib/supabase";
+import { deletePropertyImagesByUrls } from "../../lib/storage";
 import { useLanguage } from "../../i18n/LanguageContext";
 
 interface AdminPropertiesViewProps {
@@ -99,6 +100,10 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
       const { error } = await supabase.from("properties").delete().eq("id", prop.id);
 
       if (error) throw error;
+
+      if (Array.isArray(prop.images) && prop.images.length > 0) {
+        await deletePropertyImagesByUrls(prop.images);
+      }
 
       setProperties((prev) => prev.filter((item) => item.id !== prop.id));
       showToast(`Propiedad "${prop.title}" eliminada`);
@@ -204,13 +209,13 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
             )}
           </div>
 
-          <button
-            type="button"
+          <Link
+            href="/admin/properties/new"
             className="bg-mosque hover:bg-mosque/90 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-md shadow-mosque/20 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2 cursor-pointer"
           >
             <span className="material-icons text-base">add</span>
             <span>{dict.admin.properties.addProperty}</span>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -337,7 +342,17 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
                   </div>
 
                   <div className="col-span-6 md:col-span-2">
-                    {prop.listing_type === "sale" ? (
+                    {prop.status === "draft" ? (
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/15">
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400 mr-1.5" />
+                        {dict.admin.properties.status.draft}
+                      </span>
+                    ) : prop.status === "sold" ? (
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800/40">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5" />
+                        {dict.admin.properties.status.sold}
+                      </span>
+                    ) : prop.listing_type === "sale" ? (
                       <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-hint-green text-mosque border border-mosque/10">
                         <span className="w-1.5 h-1.5 rounded-full bg-mosque mr-1.5" />
                         {dict.admin.properties.status.active}
@@ -376,15 +391,14 @@ export const AdminPropertiesView = ({ initialProperties }: AdminPropertiesViewPr
                       <span className="material-icons text-xl">open_in_new</span>
                     </Link>
 
-                    <button
-                      type="button"
-                      disabled={isBusy}
+                    <Link
+                      href={`/admin/properties/${prop.id}/edit`}
                       title={dict.admin.properties.edit}
                       aria-label={dict.admin.properties.edit}
-                      className="p-2 rounded-lg text-gray-400 hover:text-mosque hover:bg-hint-green/30 transition-all cursor-pointer disabled:opacity-50"
+                      className="p-2 rounded-lg text-gray-400 hover:text-mosque hover:bg-hint-green/30 transition-all"
                     >
                       <span className="material-icons text-xl">edit</span>
-                    </button>
+                    </Link>
 
                     <button
                       type="button"

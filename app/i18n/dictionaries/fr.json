@@ -147,13 +147,98 @@
       "status": {
         "active": "Active",
         "pending": "À Louer",
-        "featured": "En Vedette"
+        "featured": "En Vedette",
+        "draft": "Brouillon",
+        "sold": "Vendue"
       },
       "beds": "Ch.",
       "baths": "Sdb.",
       "viewDetail": "Voir détail",
       "edit": "Modifier la propriété",
       "delete": "Supprimer"
+    },
+    "propertyForm": {
+      "breadcrumbProperties": "Propriétés",
+      "breadcrumbAddNew": "Nouvelle Propriété",
+      "breadcrumbEdit": "Modifier la Propriété",
+      "createTitle": "Ajouter une Nouvelle Propriété",
+      "createSubtitle": "Remplissez les détails ci-dessous pour créer une nouvelle annonce. Les champs marqués d'un * sont obligatoires.",
+      "editTitle": "Modifier la Propriété",
+      "editSubtitle": "Mettez à jour les détails, la galerie et les caractéristiques du bien. Les champs marqués d'un * sont obligatoires.",
+      "saveDraft": "Enregistrer le Brouillon",
+      "saveProperty": "Enregistrer la Propriété",
+      "updateProperty": "Mettre à Jour",
+      "saving": "Enregistrement...",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "sections": {
+        "basicInfo": "Informations de Base",
+        "description": "Description",
+        "gallery": "Galerie",
+        "location": "Emplacement",
+        "details": "Détails"
+      },
+      "fields": {
+        "title": "Titre de la Propriété",
+        "titlePlaceholder": "ex. Penthouse Moderne avec Vue Mer",
+        "price": "Prix",
+        "status": "Statut",
+        "propertyType": "Type de Bien",
+        "priceLabel": "Libellé du Prix",
+        "priceLabelPlaceholder": "ex. $2.5M ou $2,755/mois",
+        "slug": "Slug URL",
+        "slugPlaceholder": "penthouse-moderne-vue-mer",
+        "featured": "Propriété en Vedette",
+        "featuredHint": "Sera mise en avant dans les Collections à la Une.",
+        "descriptionPlaceholder": "Décrivez les caractéristiques du bien, le quartier et ses atouts...",
+        "characters": "caractères",
+        "address": "Adresse",
+        "addressPlaceholder": "Adresse, Ville, Code Postal",
+        "mapPreview": "Aperçu",
+        "area": "Surface (m²)",
+        "yearBuilt": "Année de Construction",
+        "bedrooms": "Chambres",
+        "bathrooms": "Salles de bain",
+        "parking": "Parking",
+        "amenities": "Prestations"
+      },
+      "statuses": {
+        "forSale": "À Vendre",
+        "forRent": "À Louer",
+        "sold": "Vendue"
+      },
+      "types": {
+        "Apartment": "Appartement",
+        "House": "Maison",
+        "Villa": "Villa",
+        "Condo": "Copropriété",
+        "Penthouse": "Penthouse",
+        "Commercial": "Commercial"
+      },
+      "amenities": {
+        "Swimming Pool": "Piscine",
+        "Garden": "Jardin",
+        "Air Conditioning": "Climatisation",
+        "Smart Home": "Maison Intelligente",
+        "Gym": "Salle de sport",
+        "EV Charging": "Borne EV"
+      },
+      "gallery": {
+        "dropzoneTitle": "Cliquez ou glissez des images ici",
+        "dropzoneHint": "Taille maximale 5 Mo par image",
+        "uploading": "Téléversement vers Supabase...",
+        "mainBadge": "Principale",
+        "addMore": "Ajouter",
+        "setMain": "Définir comme principale",
+        "replace": "Remplacer l'image",
+        "remove": "Supprimer l'image"
+      },
+      "messages": {
+        "createdSuccess": "Propriété créée avec succès",
+        "updatedSuccess": "Propriété mise à jour avec succès",
+        "draftSaved": "Brouillon enregistré avec succès",
+        "validationError": "Veuillez remplir les champs obligatoires (titre, prix et adresse)."
+      }
     },
     "users": {
       "title": "Répertoire des Utilisateurs",

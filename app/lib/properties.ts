@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import { PaginatedProperties, Property } from './types';
+import { isSupabasePropertyImageUrl } from './storage';
 
 const PAGE_SIZE = 8;
 
@@ -72,6 +73,13 @@ async function getUniqueImagesByPropertyId(): Promise<Map<string, string[]>> {
   for (let i = 0; i < data.length; i++) {
     const row = data[i];
     const currentImages: string[] = Array.isArray(row.images) ? row.images.filter(Boolean) : [];
+
+    // Preserve real user-uploaded images from Supabase Storage verbatim (no Unsplash padding)
+    if (currentImages.some((img) => isSupabasePropertyImageUrl(img))) {
+      imageMap.set(row.id, currentImages);
+      continue;
+    }
+
     const currentPrimary = currentImages[0];
     const currentKey = currentPrimary ? extractUnsplashId(currentPrimary) : '';
 
@@ -150,7 +158,8 @@ export async function getFeaturedProperties(): Promise<Property[]> {
     return [];
   }
 
-  return applyUniqueImages(data ?? [], imageMap);
+  const published = (data ?? []).filter((prop) => prop.status !== 'draft');
+  return applyUniqueImages(published, imageMap);
 }
 
 export interface FilterOptions {
@@ -223,9 +232,10 @@ export async function getMarketProperties(
 
   const total = count ?? 0;
   const totalPages = Math.ceil(total / PAGE_SIZE);
+  const published = (data ?? []).filter((prop) => prop.status !== 'draft');
 
   return {
-    properties: applyUniqueImages(data ?? [], imageMap),
+    properties: applyUniqueImages(published, imageMap),
     total,
     page,
     pageSize: PAGE_SIZE,
@@ -278,5 +288,28 @@ export async function getAllPropertiesForAdmin(): Promise<Property[]> {
   }
 
   return applyUniqueImages(data, imageMap);
+}
+
+/**
+ * Fetches the exact raw property row by ID for the admin edit form
+ * without mutating or padding the images array.
+ */
+export async function getRawPropertyByIdForAdmin(id: string): Promise<Property | null> {
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (error || !data) {
+    if (error) console.error('[getRawPropertyByIdForAdmin] Supabase error:', error.message);
+    return null;
+  }
+
+  return {
+    ...data,
+    images: Array.isArray(data.images) ? data.images.filter(Boolean) : [],
+    amenities: Array.isArray(data.amenities) ? data.amenities : [],
+  };
 }
 

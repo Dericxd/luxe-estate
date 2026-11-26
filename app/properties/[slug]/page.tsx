@@ -110,7 +110,9 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
               </div>
               <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 dark:bg-white/5 rounded-lg border border-mosque/10 dark:border-white/5">
                 <span className="material-icons text-mosque text-2xl mb-2">directions_car</span>
-                <span className="text-xl font-bold text-nordic dark:text-white">2</span>
+                <span className="text-xl font-bold text-nordic dark:text-white">
+                  {property.parking ?? 2}
+                </span>
                 <span className="text-xs uppercase tracking-wider text-nordic/50 dark:text-white/50 text-center">{dict.propertyDetail.garage}</span>
               </div>
             </div>
@@ -118,13 +120,19 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
           <div className="bg-white dark:bg-white/5 p-8 rounded-xl shadow-sm border border-mosque/5 dark:border-white/10">
             <h2 className="text-lg font-semibold mb-4 text-nordic dark:text-white">{dict.propertyDetail.aboutTitle}</h2>
-            <div className="prose prose-slate dark:prose-invert max-w-none text-nordic/70 dark:text-white/70 leading-relaxed">
-              <p className="mb-4">
-                {dict.propertyDetail.aboutParagraph1.replace("{location}", property.location)}
-              </p>
-              <p>
-                {dict.propertyDetail.aboutParagraph2}
-              </p>
+            <div className="prose prose-slate dark:prose-invert max-w-none text-nordic/70 dark:text-white/70 leading-relaxed whitespace-pre-line">
+              {property.description ? (
+                <p>{property.description}</p>
+              ) : (
+                <>
+                  <p className="mb-4">
+                    {dict.propertyDetail.aboutParagraph1.replace("{location}", property.location)}
+                  </p>
+                  <p>
+                    {dict.propertyDetail.aboutParagraph2}
+                  </p>
+                </>
+              )}
             </div>
             <button className="mt-4 text-mosque font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
               {dict.propertyDetail.readMore}
@@ -135,22 +143,39 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
           <div className="bg-white dark:bg-white/5 p-8 rounded-xl shadow-sm border border-mosque/5 dark:border-white/10">
             <h2 className="text-lg font-semibold mb-6 text-nordic dark:text-white">{dict.propertyDetail.amenitiesTitle}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-              <div className="flex items-center gap-3 text-nordic/70 dark:text-white/70">
-                <span className="material-icons text-mosque/60 text-sm">check_circle</span>
-                <span>{dict.propertyDetail.amenities.smartHome}</span>
-              </div>
-              <div className="flex items-center gap-3 text-nordic/70 dark:text-white/70">
-                <span className="material-icons text-mosque/60 text-sm">check_circle</span>
-                <span>{dict.propertyDetail.amenities.swimmingPool}</span>
-              </div>
-              <div className="flex items-center gap-3 text-nordic/70 dark:text-white/70">
-                <span className="material-icons text-mosque/60 text-sm">check_circle</span>
-                <span>{dict.propertyDetail.amenities.climateControl}</span>
-              </div>
-              <div className="flex items-center gap-3 text-nordic/70 dark:text-white/70">
-                <span className="material-icons text-mosque/60 text-sm">check_circle</span>
-                <span>{dict.propertyDetail.amenities.evCharging}</span>
-              </div>
+              {property.amenities && property.amenities.length > 0 ? (
+                property.amenities.map((amenity) => {
+                  const localized =
+                    dict.admin.propertyForm.amenities[
+                      amenity as keyof typeof dict.admin.propertyForm.amenities
+                    ] ?? amenity;
+                  return (
+                    <div key={amenity} className="flex items-center gap-3 text-nordic/70 dark:text-white/70">
+                      <span className="material-icons text-mosque/60 text-sm">check_circle</span>
+                      <span>{localized}</span>
+                    </div>
+                  );
+                })
+              ) : (
+                <>
+                  <div className="flex items-center gap-3 text-nordic/70 dark:text-white/70">
+                    <span className="material-icons text-mosque/60 text-sm">check_circle</span>
+                    <span>{dict.propertyDetail.amenities.smartHome}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-nordic/70 dark:text-white/70">
+                    <span className="material-icons text-mosque/60 text-sm">check_circle</span>
+                    <span>{dict.propertyDetail.amenities.swimmingPool}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-nordic/70 dark:text-white/70">
+                    <span className="material-icons text-mosque/60 text-sm">check_circle</span>
+                    <span>{dict.propertyDetail.amenities.climateControl}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-nordic/70 dark:text-white/70">
+                    <span className="material-icons text-mosque/60 text-sm">check_circle</span>
+                    <span>{dict.propertyDetail.amenities.evCharging}</span>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

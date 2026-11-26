@@ -11,6 +11,7 @@
   --color-nordic-dark: #19322F;
   --color-nordic-muted: #5C706D;
   --color-mosque: #006655;
+  --color-clear-day: #EEF6F6;
   --color-hint-green: #D9ECC8;
   --color-accent: #D9ECC8;
   --color-surface: #FFFFFF;
@@ -44,4 +45,19 @@ body {
 .hide-scroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.font-sf-pro {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
 }

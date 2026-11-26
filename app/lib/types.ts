@@ -1,3 +1,5 @@
+export type PropertyStatus = 'published' | 'draft' | 'sold';
+
 export interface Property {
   id: string;
   title: string;
@@ -9,11 +11,16 @@ export interface Property {
   baths: number;
   area: string;
   images: string[];
-  slug?: string;
+  slug?: string | null;
   tag: string;
   tag_color: string | null;
   is_featured: boolean;
   created_at: string;
+  description?: string | null;
+  year_built?: number | null;
+  parking?: number | null;
+  amenities?: string[] | null;
+  status?: PropertyStatus | null;
 }
 
 export interface PaginatedProperties {
