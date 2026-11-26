@@ -8,6 +8,7 @@ import {
   SUPPORTED_LOCALES,
 } from "./app/i18n/config";
 import { verifyAdmin } from "./app/lib/auth/verify-admin";
+import { verifyUser } from "./app/lib/auth/verify-user";
 
 function detectPreferredLocale(request: NextRequest): Locale {
   const acceptLanguage = request.headers.get("accept-language");
@@ -60,7 +61,25 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // 2. Gestión de idioma (cookie i18n)
+  // 2. Proteger ruta de propiedades guardadas (/saved y subrutas) para usuarios registrados
+  if (pathname === "/saved" || pathname.startsWith("/saved/")) {
+    const token = request.cookies.get("luxe-auth-token")?.value;
+    const check = await verifyUser(token);
+
+    if (!check.ok) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("redirectTo", `${pathname}${request.nextUrl.search}`);
+      const redirectResp = NextResponse.redirect(loginUrl);
+
+      if (check.reason === "invalid-token") {
+        redirectResp.cookies.delete("luxe-auth-token");
+        redirectResp.cookies.delete("luxe-auth-role");
+      }
+      return redirectResp;
+    }
+  }
+
+  // 3. Gestión de idioma (cookie i18n)
   const response = NextResponse.next();
   const existingLocale = request.cookies.get(COOKIE_NAME)?.value;
 

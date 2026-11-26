@@ -30,7 +30,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-          <PropertyGallery images={images} title={property.title} />
+          <PropertyGallery propertyId={property.id} images={images} title={property.title} />
 
           <div className="lg:col-span-4 relative">
             <div className="sticky top-28 space-y-6">

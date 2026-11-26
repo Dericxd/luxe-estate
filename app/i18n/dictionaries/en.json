@@ -4,11 +4,17 @@
     "description": "Find your sanctuary"
   },
   "navbar": {
+    "explore": "Explore",
     "buy": "Buy",
     "rent": "Rent",
     "sell": "Sell",
     "savedHomes": "Saved Homes",
     "languageSelectorLabel": "Select language",
+    "notifications": "Notifications",
+    "notificationsEmpty": "You have no new notifications",
+    "notificationsHint": "Updates on your saved properties and visit requests will appear here.",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "dashboard": "Dashboard"
@@ -83,6 +89,9 @@
     "previousImage": "Previous image",
     "nextImage": "Next image",
     "goToPhoto": "Go to photo {number}",
+    "saveProperty": "Save property",
+    "removeSavedProperty": "Remove from saved",
+    "signInToSave": "Sign in to save properties",
     "tags": {
       "Exclusive": "Exclusive",
       "New": "New",
@@ -115,6 +124,24 @@
       "climateControl": "Central Heating & Cooling",
       "evCharging": "Electric Vehicle Charging"
     }
+  },
+  "saved": {
+    "title": "Saved Homes",
+    "subtitle": "{count} properties saved in your collection.",
+    "subtitleSingle": "1 property saved in your collection.",
+    "searchPlaceholder": "Search by property title...",
+    "clearSearch": "Clear search",
+    "tabs": {
+      "all": "All",
+      "buy": "Buy",
+      "rent": "Rent"
+    },
+    "backToExplore": "Explore properties",
+    "emptyTitle": "No saved properties yet",
+    "emptySubtitle": "Browse our catalog and tap the heart icon on any property you like to keep it right here.",
+    "noResultsTitle": "No matching saved properties",
+    "noResultsSubtitle": "We couldn't find any saved properties matching \"{query}\".",
+    "saveError": "Could not update your saved properties. Please try again."
   },
   "pagination": {
     "ariaLabel": "Property pagination",

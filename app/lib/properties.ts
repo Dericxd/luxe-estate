@@ -321,3 +321,38 @@ export async function getRawPropertyByIdForAdmin(id: string, token: string): Pro
   };
 }
 
+/**
+ * Fetches all active, published properties saved by the authenticated user,
+ * ordered by most recently saved.
+ */
+export async function getSavedPropertiesForUser(token: string): Promise<Property[]> {
+  const client = createServerSupabase(token);
+  const [{ data, error }, imageMap] = await Promise.all([
+    client
+      .from('saved_properties')
+      .select('created_at, properties(*)')
+      .order('created_at', { ascending: false }),
+    getUniqueImagesByPropertyId(client),
+  ]);
+
+  if (error) {
+    console.error('[getSavedPropertiesForUser] Supabase error:', error.message);
+    return [];
+  }
+
+  const rows = (data ?? []) as Array<{
+    created_at: string;
+    properties: Property | Property[] | null;
+  }>;
+
+  const validProperties: Property[] = [];
+  for (const row of rows) {
+    const prop = Array.isArray(row.properties) ? row.properties[0] : row.properties;
+    if (prop && prop.is_active !== false && prop.status !== 'draft') {
+      validProperties.push(prop);
+    }
+  }
+
+  return applyUniqueImages(validProperties, imageMap);
+}
+

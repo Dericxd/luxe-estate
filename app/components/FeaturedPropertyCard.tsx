@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Property } from "../lib/types";
 import { useLanguage } from "../i18n/LanguageContext";
+import { FavoriteButton } from "./FavoriteButton";
 
 export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
   const images = property.images;
@@ -42,12 +43,11 @@ export const FeaturedPropertyCard = ({ property }: { property: Property }) => {
         </div>
 
         {/* Favorite button */}
-        <button 
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }} 
-          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center text-nordic-dark dark:text-white hover:bg-mosque hover:text-white dark:hover:text-white transition-all z-10"
-        >
-          <span className="material-icons text-xl">favorite_border</span>
-        </button>
+        <FavoriteButton
+          propertyId={property.id}
+          size="md"
+          className="absolute top-4 right-4 z-10"
+        />
 
         {/* Multi-image carousel navigation arrows (visible when more than 1 image) */}
         {images.length > 1 && (

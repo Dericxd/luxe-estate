@@ -4,11 +4,17 @@
     "description": "Encuentra tu santuario"
   },
   "navbar": {
+    "explore": "Explorar",
     "buy": "Comprar",
     "rent": "Alquilar",
     "sell": "Vender",
     "savedHomes": "Guardados",
     "languageSelectorLabel": "Seleccionar idioma",
+    "notifications": "Notificaciones",
+    "notificationsEmpty": "No tienes notificaciones nuevas",
+    "notificationsHint": "Aquí verás novedades de tus propiedades guardadas y solicitudes de visita.",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
     "signIn": "Iniciar sesión",
     "signOut": "Cerrar sesión",
     "dashboard": "Dashboard"
@@ -83,6 +89,9 @@
     "previousImage": "Imagen anterior",
     "nextImage": "Siguiente imagen",
     "goToPhoto": "Ir a la foto {number}",
+    "saveProperty": "Guardar propiedad",
+    "removeSavedProperty": "Quitar de guardados",
+    "signInToSave": "Inicia sesión para guardar propiedades",
     "tags": {
       "Exclusive": "Exclusivo",
       "New": "Nuevo",
@@ -115,6 +124,24 @@
       "climateControl": "Calefacción y Aire Central",
       "evCharging": "Carga para Vehículos Eléctricos"
     }
+  },
+  "saved": {
+    "title": "Propiedades Guardadas",
+    "subtitle": "{count} propiedades guardadas en tu colección.",
+    "subtitleSingle": "1 propiedad guardada en tu colección.",
+    "searchPlaceholder": "Buscar por título de propiedad...",
+    "clearSearch": "Limpiar búsqueda",
+    "tabs": {
+      "all": "Todas",
+      "buy": "Comprar",
+      "rent": "Alquilar"
+    },
+    "backToExplore": "Explorar propiedades",
+    "emptyTitle": "Aún no tienes propiedades guardadas",
+    "emptySubtitle": "Explora nuestro catálogo y toca el corazón en las propiedades que te interesen para encontrarlas rápidamente aquí.",
+    "noResultsTitle": "Sin coincidencias en tus guardados",
+    "noResultsSubtitle": "No encontramos propiedades guardadas que coincidan con \"{query}\".",
+    "saveError": "No se pudo actualizar tu lista de guardados. Inténtalo nuevamente."
   },
   "pagination": {
     "ariaLabel": "Paginación de propiedades",

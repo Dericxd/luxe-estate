@@ -4,11 +4,17 @@
     "description": "Trova il tuo santuario"
   },
   "navbar": {
+    "explore": "Esplora",
     "buy": "Acquista",
     "rent": "Affitta",
     "sell": "Vendi",
     "savedHomes": "Salvati",
     "languageSelectorLabel": "Seleziona lingua",
+    "notifications": "Notifiche",
+    "notificationsEmpty": "Nessuna nuova notifica",
+    "notificationsHint": "Qui appariranno gli aggiornamenti sui tuoi immobili salvati e le richieste di visita.",
+    "openMenu": "Apri menu",
+    "closeMenu": "Chiudi menu",
     "signIn": "Accedi",
     "signOut": "Esci",
     "dashboard": "Dashboard"
@@ -83,6 +89,9 @@
     "previousImage": "Immagine precedente",
     "nextImage": "Immagine successiva",
     "goToPhoto": "Vai alla foto {number}",
+    "saveProperty": "Salva immobile",
+    "removeSavedProperty": "Rimuovi dai salvati",
+    "signInToSave": "Accedi per salvare gli immobili",
     "tags": {
       "Exclusive": "Esclusivo",
       "New": "Nuovo",
@@ -115,6 +124,24 @@
       "climateControl": "Riscaldamento e Climatizzazione Centrale",
       "evCharging": "Ricarica per Veicoli Elettrici"
     }
+  },
+  "saved": {
+    "title": "Immobili Salvati",
+    "subtitle": "{count} immobili salvati nella tua collezione.",
+    "subtitleSingle": "1 immobile salvato nella tua collezione.",
+    "searchPlaceholder": "Cerca per titolo dell'immobile...",
+    "clearSearch": "Cancella ricerca",
+    "tabs": {
+      "all": "Tutte",
+      "buy": "Acquista",
+      "rent": "Affitta"
+    },
+    "backToExplore": "Esplora immobili",
+    "emptyTitle": "Nessun immobile salvato",
+    "emptySubtitle": "Esplora il catalogo e tocca il cuore sugli immobili che preferisci per ritrovarli subito qui.",
+    "noResultsTitle": "Nessun risultato nei salvati",
+    "noResultsSubtitle": "Non abbiamo trovato immobili salvati corrispondenti a \"{query}\".",
+    "saveError": "Impossibile aggiornare i tuoi preferiti. Riprova."
   },
   "pagination": {
     "ariaLabel": "Paginazione immobili",

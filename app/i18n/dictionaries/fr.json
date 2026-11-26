@@ -4,11 +4,17 @@
     "description": "Trouvez votre sanctuaire"
   },
   "navbar": {
+    "explore": "Explorer",
     "buy": "Acheter",
     "rent": "Louer",
     "sell": "Vendre",
     "savedHomes": "Favoris",
     "languageSelectorLabel": "Choisir la langue",
+    "notifications": "Notifications",
+    "notificationsEmpty": "Aucune nouvelle notification",
+    "notificationsHint": "Les actualités de vos biens favoris et demandes de visite apparaîtront ici.",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
     "signIn": "Connexion",
     "signOut": "Déconnexion",
     "dashboard": "Tableau de bord"
@@ -83,6 +89,9 @@
     "previousImage": "Image précédente",
     "nextImage": "Image suivante",
     "goToPhoto": "Aller à la photo {number}",
+    "saveProperty": "Enregistrer le bien",
+    "removeSavedProperty": "Retirer des favoris",
+    "signInToSave": "Connectez-vous pour enregistrer des biens",
     "tags": {
       "Exclusive": "Exclusif",
       "New": "Nouveau",
@@ -115,6 +124,24 @@
       "climateControl": "Chauffage et Climatisation Centralisés",
       "evCharging": "Borne de Recharge Électrique"
     }
+  },
+  "saved": {
+    "title": "Biens Favoris",
+    "subtitle": "{count} biens enregistrés dans votre collection.",
+    "subtitleSingle": "1 bien enregistré dans votre collection.",
+    "searchPlaceholder": "Rechercher par titre de propriété...",
+    "clearSearch": "Effacer la recherche",
+    "tabs": {
+      "all": "Tous",
+      "buy": "Acheter",
+      "rent": "Louer"
+    },
+    "backToExplore": "Explorer les biens",
+    "emptyTitle": "Aucun bien enregistré pour le moment",
+    "emptySubtitle": "Parcourez notre catalogue et cliquez sur le cœur des propriétés qui vous plaisent pour les retrouver ici.",
+    "noResultsTitle": "Aucun favori correspondant",
+    "noResultsSubtitle": "Aucun bien enregistré ne correspond à « {query} ».",
+    "saveError": "Impossible de mettre à jour vos favoris. Veuillez réessayer."
   },
   "pagination": {
     "ariaLabel": "Pagination des biens",

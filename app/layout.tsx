@@ -4,6 +4,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { getServerDictionary } from "./i18n/dictionaries";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { AuthProvider } from "./context/AuthContext";
+import { FavoritesProvider } from "./context/FavoritesContext";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { dict } = await getServerDictionary();
@@ -26,9 +27,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-full flex flex-col bg-background-light dark:bg-background-dark text-nordic-dark dark:text-white font-display transition-colors duration-300">
         <ThemeProvider>
           <AuthProvider>
-            <LanguageProvider initialLocale={locale} initialDictionary={dict}>
-              {children}
-            </LanguageProvider>
+            <FavoritesProvider>
+              <LanguageProvider initialLocale={locale} initialDictionary={dict}>
+                {children}
+              </LanguageProvider>
+            </FavoritesProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

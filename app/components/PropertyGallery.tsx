@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { useLanguage } from "../i18n/LanguageContext";
+import { FavoriteButton } from "./FavoriteButton";
 
 interface PropertyGalleryProps {
+  propertyId: string;
   images: string[];
   title: string;
 }
 
-export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
+export const PropertyGallery = ({ propertyId, images, title }: PropertyGalleryProps) => {
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const { dict } = useLanguage();
 
@@ -27,6 +29,11 @@ export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
             {dict.propertyDetail.premiumBadge}
           </span>
         </div>
+        <FavoriteButton
+          propertyId={propertyId}
+          size="md"
+          className="absolute top-4 right-4 z-10 shadow-sm"
+        />
         {images.length > 1 && (
           <button className="absolute bottom-4 right-4 bg-white/90 hover:bg-white text-nordic px-4 py-2 rounded-lg text-sm font-medium shadow-lg backdrop-blur transition-all flex items-center gap-2">
             <span className="material-icons text-sm">grid_view</span>
